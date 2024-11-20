@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inclusion Technician - Feedback</title>
+    <style>
+        :root {
+            --font-link-header: "Bebas Neue", sans-serif;
+            --font-texto: "Saira", sans-serif;
+            --background-color: LightBlue;
+            --text-color: #000000;
+            --button-bg-color: LightGreen; /* Azul */
+            --button-text-color: #ffffff;
+            --form-bg-color: #ffffe0; /* Amarelo claro */
+        }
+
+        body.dark-mode {
+            --background-color: MidnightBlue; /* Cor do fundo no modo escuro */
+            --text-color: #ffffff; /* Cor do texto no modo escuro */
+            --form-bg-color: #2c3e50; /* Cor de fundo do formulário no modo escuro */
+            --button-bg-color: #555; /* Cor do botão no modo escuro */
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: var(--background-color);
+            color: var(--text-color);
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            height: auto;
+            margin: 0;
+            min-height: 100vh;
+            position: relative;
+            padding: 10px; /* Adicionando um pouco de espaçamento nas laterais */
+        }
+
+        main {
+            flex-grow: 1; /* Permite que o main ocupe o espaço disponível */
+            width: 100%;
+            max-width: 600px; /* Limita a largura máxima para telas grandes */
+        }
+
+        header {
+            width: 100%;
+            margin-bottom: 20px;
+            padding: 10px 0;
+            position: relative;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+            background-color: LightGreen; /* Fundo do cabeçalho */
+        }
+
+        h1 {
+            flex-grow: 1;
+            text-align: center;
+            margin: 0;
+        }
+
+        .theme-toggle-container {
+            display: flex;
+            align-items: center;
+        }
+
+        .theme-toggle-container img {
+            height: 30px;
+            width: auto;
+        }
+
+        form {
+            background-color: var(--form-bg-color);
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+            animation: popIn 0.5s ease; /* Animação de entrada do formulário */
+        }
+
+        label {
+            display: block;
+            margin: 10px 0 5px;
+        }
+
+        input, textarea {
+            width: calc(100% - 20px);
+            padding: 8px;
+            margin: 5px 0 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            animation: pulse 1.5s infinite; /* Animação de pulso nos campos */
+        }
+
+        input[type="submit"] {
+            background-color: var(--button-bg-color);
+            color: var(--button-text-color);
+            cursor: pointer;
+            padding: 5px 10px; /* Diminuído */
+            border: none;
+            border-radius: 5px;
+            font-size: 12px; /* Diminuído */
+            transition: background-color 0.3s; /* Transição suave */
+        }
+
+        input[type="submit"]:hover {
+            background-color: #32CD32; /* Verde mais escuro */
+        }
+
+        .feedback-item {
+            background-color: var(--form-bg-color);
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 5px;
+            box-shadow: 0 1px 5px rgba(0, 0, 0, 0.2);
+            display: flex;
+            flex-direction: column; /* Muda para coluna em telas menores */
+            animation: fadeIn 0.5s ease; /* Animação de entrada dos feedbacks */
+        }
+
+        .feedback-content {
+            flex-grow: 1; /* Permite que o conteúdo do feedback ocupe o espaço disponível */
+        }
+
+        .feedback-item h4 {
+            margin-bottom: 5px;
+        }
+
+        .feedback-item button {
+            margin-right: 5px;
+            margin-top: 5px; /* Adiciona espaçamento acima dos botões */
+        }
+
+        .response-form {
+            display: none;
+            margin-top: 10px;
+        }
+
+        #thankYouMessages {
+            display: none;
+            margin-top: 20px;
+            color: green;
+        }
+
+        .feedback-image {
+            height: 50px; /* Altura da imagem */
+            width: auto;
+            margin-left: 10px; /* Espaçamento à esquerda da imagem */
+            padding: 5px;
+            margin-top: 10px;
+        }
+
+        .footer-box {
+            background-color: #d3d3d3;
+            padding: 10px;
+            text-align: center;
+            position: relative;
+            bottom: 0;
+            width: 100%;
+            height: 50px;
+            box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Animações */
+        @keyframes popIn {
+            0% {
+                transform: scale(0.5);
+                opacity: 0;
+            }
+            100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.05);
+            }
+        }
+
+        /* Media Queries para Responsividade */
+        @media (max-width: 768px) {
+            header {
+                flex-direction: column; /* Muda a direção do cabeçalho em telas menores */
+                align-items: flex-start; /* Alinha os itens à esquerda */
+            }
+
+            h1 {
+                margin: 10px 0; /* Adiciona margem ao h1 em telas menores */
+            }
+
+            input, textarea {
+                font-size: 14px; /* Aumenta o tamanho da fonte em telas menores */
+            }
+
+            input[type="submit"] {
+                font-size: 14px; /* Aumenta o tamanho da fonte do botão em telas menores */
+            }
+
+            .feedback-item {
+                padding: 15px; /* Aumenta o padding em feedbacks para telas menores */
+            }
+        }
+
+        @media (max-width: 480px) {
+            header {
+                padding: 10px; /* Reduz o padding do cabeçalho em telas muito pequenas */
+            }
+
+            input, textarea {
+                font-size: 12px; /* Diminui ainda mais o tamanho da fonte em telas pequenas */
+            }
+
+            input[type="submit"] {
+                padding: 8px; /* Ajusta o padding do botão em telas pequenas */
+            }
+
+            .feedback-item {
+                padding: 10px; /* Ajusta o padding do feedback em telas pequenas */
+            }
+
+            .feedback-image {
+                height: 40px; /* Reduz a altura da imagem em telas pequenas */
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <a href="index.html">
+            <img src="logo.png" alt="Logo" style="height: 50px;">
+        </a>
+        <h1>Feedback</h1>
+        <div class="theme-toggle-container">
+            <button id="themeToggle">
+                <img src="tema.png" alt="Tema">
+            </button>
+        </div>
+    </header>
+    
+    <img src="feed2.png" alt="feed2.png">
+
+    <main>
+        <form id="feedbackForm">
+            <label for="name">Seu Nome:</label>
+            <input type="text" id="name" name="name" required>
+
+            <label for="email">Seu E-mail:</label>
+            <input type="email" id="email" name="email" required>
+
+            <label for="message">Sua Mensagem:</label>
+            <textarea id="message" name="message" rows="4" required></textarea>
+
+            <input type="submit" value="Enviar">
+        </form>
+
+        <div id="thankYouMessages">
+            <h4>Obrigado pelo seu feedback!</h4>
+        </div>
+
+        <div id="feedbackList"></div>
+           
+        <a href="index.html" style="text-decoration: none; background-color: #668cb4; color: rgba(255, 0, 0, 0.644);font-size: 15px;
+        font-family: 'Times New Roman', Times, serif; padding: 7px; border-radius: 30px;">VOLTAR</a>
+    </main>
+     
+ 
+
+    <footer class="footer-box">
+        <p>&copy; 2023 Sua Empresa. Todos os direitos reservados.</p>
+    </footer>
+
+    <script>
+        let feedbacks = JSON.parse(localStorage.getItem('feedbacks')) || [];
+
+        document.getElementById('feedbackForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const message = document.getElementById('message').value;
+
+            const feedback = {
+                name,
+                email,
+                message,
+                likes: 0,
+                responses: []
+            };
+
+            feedbacks.push(feedback);
+            saveFeedbacks();
+            document.getElementById('thankYouMessages').style.display = 'block';
+            setTimeout(() => {
+                document.getElementById('thankYouMessages').style.display = 'none';
+            }, 3000);
+            displayFeedbacks();
+            document.getElementById('feedbackForm').reset();
+        });
+
+        function saveFeedbacks() {
+            localStorage.setItem('feedbacks', JSON.stringify(feedbacks));
+        }
+
+        function displayFeedbacks() {
+            const feedbackList = document.getElementById('feedbackList');
+            feedbackList.innerHTML = '';
+
+            feedbacks.forEach((feedback, index) => {
+                const feedbackItem = document.createElement('div');
+                feedbackItem.className = 'feedback-item';
+                feedbackItem.innerHTML = `
+                    <div class="feedback-content">
+                        <h4>${feedback.name}</h4>
+                        <p>${feedback.message}</p>
+                        <button onclick="likeFeedback(${index})">Curtir (${feedback.likes})</button>
+                        <button onclick="toggleResponseForm(${index})">Responder</button>
+                        <div class="response-form" id="responseForm${index}">
+                            <textarea placeholder="Sua resposta"></textarea>
+                            <button onclick="respondToFeedback(${index})">Enviar Resposta</button>
+                        </div>
+                        <div id="responses${index}"></div>
+                    </div>
+                    <img src="feed.png" alt="Imagem do Feedback" class="feedback-image">
+                `;
+                feedbackList.appendChild(feedbackItem);
+            });
+        }
+
+        function likeFeedback(index) {
+            feedbacks[index].likes++;
+            saveFeedbacks(); // Salvar feedbacks após curtir
+            displayFeedbacks();
+        }
+
+        function toggleResponseForm(index) {
+            const responseForm = document.getElementById(`responseForm${index}`);
+            responseForm.style.display = responseForm.style.display === 'block' ? 'none' : 'block';
+        }
+
+        function respondToFeedback(index) {
+            const responseTextarea = document.querySelector(`#responseForm${index} textarea`);
+            const response = responseTextarea.value;
+            if (response) {
+                feedbacks[index].responses.push(response);
+                saveFeedbacks(); // Salvar feedbacks após resposta
+                displayFeedbacks();
+                responseTextarea.value = '';
+            }
+        }
+
+        // Exibir feedbacks ao carregar a página
+        displayFeedbacks();
+    </script>
+</body>
+</html>

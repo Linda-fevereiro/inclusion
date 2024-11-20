@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Inclusion Technician - Quiz</title>
+    <style>
+        :root {
+            --background-color-light: LightBlue;
+            --background-color-dark: midnightblue;
+            --text-color-light: #000000;
+            --text-color-dark: #0c0c0c;
+            --option-bg-color-light: rgba(0, 120, 248, 0.1);
+            --option-bg-color-dark: rgba(0, 128, 0, 0.1);
+            --option-hover-bg-color-light: rgba(0, 86, 179, 0.8);
+            --option-hover-bg-color-dark: rgba(0, 128, 0, 0.8);
+            --correct-color: #28a745;
+            --incorrect-color: #dc3545;
+            --footer-bg-color-light: #9e9a9a;
+            --footer-bg-color-dark: #444444;
+            --header-gradient-light: linear-gradient(135deg, LightBlue, lightgreen);
+            --header-gradient-dark: linear-gradient(135deg, midnightblue, green);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: var(--background-color-light);
+            color: var(--text-color-light);
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            width: 100%;
+            background: linear-gradient(135deg, LightBlue, lightgreen);
+        }
+
+        header img {
+            height: 50px;
+            cursor: pointer;
+        }
+        #quiz-container {
+            display: block;
+            margin: 20px;
+            padding: 20px;
+            border: 1px solid #ccc;
+            background-color: rgb(134, 234, 241);
+            border-radius: 8px;
+            max-width: 300px;
+        }
+
+        h2 {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: end;
+        }
+
+        .result {
+            font-size: 1.2em;
+            margin-top: 20px;
+            text-align: center;
+            display: none;
+        }
+
+        .option-btn {
+            background-color: var(--option-bg-color-light);
+            color: var(--text-color-light);
+            padding: 10px;
+            margin: 10px 0;
+            border: 2px solid #007bff;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            text-align: center;
+            width: 100%;
+            max-width: 300px;
+        }
+
+        .option-btn:hover {
+            background-color: var(--option-hover-bg-color-light);
+        }
+
+        .correct {
+            background-color: var(--correct-color);
+        }
+
+        .incorrect {
+            background-color: var(--incorrect-color);
+        }
+
+        .footer-box {
+            background-color: #d3d3d3;
+            padding: 10px;
+            text-align: center;
+            width: 100%;
+            height: 50px;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
+            margin-top: 40px;
+            
+        }
+        main {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 20px; /* Espaço entre o quiz e a imagem */
+}
+
+main img {
+    min-width: 500px; /* Ajuste o tamanho máximo da imagem */
+    height: auto;
+    border-radius: 8px;
+  
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+        /* Responsividade para dispositivos móveis */
+        @media (max-width: 768px) {
+            .image-container {
+                gap: 15px;
+                margin-top: 30px;
+            }
+
+            .image-container img {
+                width: 180px;
+            }
+
+            a {
+                font-size: 13px;
+                padding: 5px;
+            }
+
+            header {
+                padding: 5px;
+            }
+        }
+
+        /* Responsividade para tablets */
+        @media (max-width: 1024px) {
+            .image-container img {
+                width: 220px;
+            }
+        }
+
+        .theme-toggle-container {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background-color: rgb(184, 181, 181);
+        }
+
+        .theme-toggle-container img {
+            height: 30px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <a href="jogos.html">
+            <img src="logo.png" alt="Logo">
+        </a>
+        <div class="theme-toggle-container">
+            <button id="themeToggle">
+                <img src="tema.png" alt="Trocar Tema">
+            </button>
+        </div>
+    </header>
+
+    <main>
+        <section id="quiz-container">
+            <h2>Quiz</h2>
+            <div id="question-container" role="document"></div>
+            <div id="options-container"></div>
+            <div role="alert" id="result" class="result"></div>
+        </section>
+
+        <img src="jg1.png" alt="">
+    </main>
+
+    <footer class="footer-box">
+        <p>© 2024 Técnico em Inclusão. Todos os direitos reservados.</p>
+    </footer>
+
+    <script>
+        const questions = [
+            {
+                question: "Qual é um dos sintomas do Autismo?",
+                options: [
+                    "Dificuldade em entender sentimentos",
+                    "Amor por esportes",
+                    "Interesse por música",
+                    "Habilidade social avançada"
+                ],
+                answer: "Dificuldade em entender sentimentos"
+            },
+            {
+                question: "O que caracteriza o TDAH?",
+                options: [
+                    "Aumento de habilidades sociais",
+                    "Hiperatividade e desatenção",
+                    "Solução rápida de problemas",
+                    "Memória excepcional"
+                ],
+                answer: "Hiperatividade e desatenção"
+            },
+            {
+                question: "Qual terapia é comum para autistas?",
+                options: [
+                    "Terapia ocupacional",
+                    "Fisioterapia",
+                    "Terapia do esporte",
+                    "Terapia de grupo"
+                ],
+                answer: "Terapia ocupacional"
+            },
+            {
+                question: "Quais são os principais tipos de TDAH?",
+                options: [
+                    "TDAH do tipo desatento, hiperativo-impulsivo, e combinado",
+                    "TDAH do tipo social e solitário",
+                    "TDAH leve e grave",
+                    "TDAH temporário e permanente"
+                ],
+                answer: "TDAH do tipo desatento, hiperativo-impulsivo, e combinado"
+            },
+            {
+                question: "Como o autismo se manifesta em crianças?",
+                options: [
+                    "Falta de interesse em brincadeiras",
+                    "Altos índices de empatia",
+                    "Interação excessiva com estranhos",
+                    "Desenvolvimento acelerado da fala"
+                ],
+                answer: "Falta de interesse em brincadeiras"
+            },
+            {
+                question: "Qual é um tratamento comum para o TDAH?",
+                options: [
+                    "Terapia cognitivo-comportamental",
+                    "Terapia ocupacional",
+                    "Terapia da fala",
+                    "Terapia de luz"
+                ],
+                answer: "Terapia cognitivo-comportamental"
+            },
+            {
+                question: "Um desafio comum para autistas é:",
+                options: [
+                    "Socialização",
+                    "Foco em atividades",
+                    "Memória de longo prazo",
+                    "Atividades físicas"
+                ],
+                answer: "Socialização"
+            },
+            {
+                question: "Quais atividades ajudam no gerenciamento do TDAH?",
+                options: [
+                    "Jogos que envolvem atenção e concentração",
+                    "Atividades passivas",
+                    "Assistir televisão",
+                    "Ler livros longos"
+                ],
+                answer: "Jogos que envolvem atenção e concentração"
+            },
+            {
+                question: "Qual é uma característica de pessoas com autismo?",
+                options: [
+                    "Eles possuem dificuldades em entender ironias e metáforas",
+                    "Eles são geralmente muito extrovertidos",
+                    "Eles têm um grande amor por comida",
+                    "Eles costumam ser muito esportivos"
+                ],
+                answer: "Eles possuem dificuldades em entender ironias e metáforas"
+            },
+            {
+                question: "Como as intervenções precoces podem ajudar crianças autistas?",
+                options: [
+                    "Aumentar a comunicação e habilidades sociais",
+                    "Reduzir a altura",
+                    "Melhorar a capacidade atlética",
+                    "Aumentar a velocidade de leitura"
+                ],
+                answer: "Aumentar a comunicação e habilidades sociais"
+            }
+        ];
+
+        let currentQuestionIndex = 0;
+        let score = 0;
+
+        function startQuiz() {
+            currentQuestionIndex = 0;
+            score = 0;
+            document.getElementById('result').innerHTML = '';
+            shuffleQuestions();
+            showQuestion();
+        }
+
+        function shuffleQuestions() {
+            for (let i = questions.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [questions[i], questions[j]] = [questions[j], questions[i]];
+            }
+        }
+
+        function shuffleOptions(options) {
+            for (let i = options.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [options[i], options[j]] = [options[j], options[i]];
+            }
+        }
+
+        function selectOption(option) {
+            const currentQuestion = questions[currentQuestionIndex];
+            const buttons = document.querySelectorAll('.option-btn');
+
+            buttons.forEach(button => {
+                if (button.innerText.includes(option)) {
+                    button.classList.add(option === currentQuestion.answer ? 'correct' : 'incorrect');
+                } else {
+                    button.classList.add('inactive');
+                }
+                button.disabled = true;
+            });
+
+            if (option === currentQuestion.answer) {
+                score++;
+            }
+
+            currentQuestionIndex++;
+            setTimeout(() => {
+                if (currentQuestionIndex < questions.length) {
+                    showQuestion();
+                } else {
+                    showResult();
+                }
+            }, 1000);
+        }
+
+        function showResult() {
+            const resultContainer = document.getElementById('result');
+            resultContainer.innerHTML = `Você acertou ${score} de ${questions.length} perguntas. <button onclick="startQuiz()">Tentar Novamente</button>`;
+            resultContainer.style.display = 'block';
+        }
+
+        function showQuestion() {
+            const questionContainer = document.getElementById('question-container');
+            const optionsContainer = document.getElementById('options-container');
+            const currentQuestion = questions[currentQuestionIndex];
+
+            questionContainer.innerHTML = currentQuestion.question;
+
+                        const shuffledOptions = [...currentQuestion.options];
+            shuffleOptions(shuffledOptions);
+            
+            optionsContainer.innerHTML = '';
+
+            shuffledOptions.forEach((option, index) => {
+                const letter = String.fromCharCode(65 + index);
+                const button = document.createElement('button');
+                button.innerText = `${letter}. ${option}`;
+                button.classList.add('option-btn');
+                
+                button.onclick = () => selectOption(option);
+                optionsContainer.appendChild(button);
+            });
+        }
+
+        window.onload = startQuiz;
+
+        const themeToggle = document.getElementById('themeToggle');
+        let isDarkMode = false;
+
+        themeToggle.addEventListener('click', () => {
+            if (isDarkMode) {
+                document.body.style.background = 'var(--background-color-light)';
+                document.body.style.color = 'var(--text-color-light)';
+                isDarkMode = false;
+            } else {
+                document.body.style.background = 'var(--background-color-dark)';
+                document.body.style.color = 'var(--text-color-dark)';
+                isDarkMode = true;
+            }
+        });
+    </script>
+</body>
+
+</html>
+

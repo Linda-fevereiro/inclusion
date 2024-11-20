@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inclusion Technician - Jogo de Concentração</title>
+    <style>
+        :root {
+            --background-color-light: LightBlue;
+            --background-color-dark: MidnightBlue;
+            --text-color-light: #000;
+            --text-color-dark: #fff;
+            --shape-color-light: #1E90FF;
+            --shape-color-dark: #4682B4;
+            --footer-bg-color-light: #696868;
+            --footer-bg-color-dark: #504d4d;
+            --score-color-light: green;
+            --score-color-dark: lightgreen;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: var(--background-color-light);
+            color: var(--text-color-light);
+            text-align: center;
+            margin: 0;
+            padding: 0;
+            transition: background-color 0.5s, color 0.5s;
+        }
+
+        main {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 50px auto;
+            gap: 20px;
+            max-width: 1000px;
+        }
+
+        #game-container {
+            flex: 1;
+            max-width: 400px;
+            background: #fff;
+            border: 2px solid #ccc;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: background-color 0.5s;
+        }
+
+        #game-container h1 {
+            color: var(--score-color-light);
+        }
+
+        #instructions {
+            font-size: 18px;
+            color: #555;
+        }
+
+        #shape {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background-color: var(--shape-color-light);
+            margin: 20px auto;
+            position: relative;
+            cursor: pointer;
+            transition: background-color 0.5s;
+        }
+
+        #score {
+            font-size: 18px;
+            color: var(--score-color-light);
+        }
+
+        .dark-mode {
+            background-color: var(--background-color-dark);
+            color: var(--text-color-dark);
+        }
+
+        .dark-mode #game-container {
+            background: #a3a3a3;
+            border-color: #444;
+        }
+
+        .dark-mode #shape {
+            background-color: var(--shape-color-dark);
+        }
+
+        .dark-mode #score {
+            color: var(--score-color-dark);
+        }
+
+        .theme-toggle-container {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background-color: #ddd;
+            padding: 10px;
+            border-radius: 50%;
+            cursor: pointer;
+        }
+
+        .theme-toggle-container img {
+            width: 30px;
+            height: 30px;
+        }
+
+        /* Logo */
+        .logo {
+            position: fixed;
+            top: 10px;
+            left: 20px;
+        }
+
+        .logo img {
+            width: 100px;
+        }
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            width: 100%;
+            
+        }
+
+
+        img.side-image {
+            max-width: 400px;
+            width: 100%;
+            height: auto;
+            border-radius: 10px;
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--footer-bg-color-light);
+            padding: 10px;
+            text-align: center;
+            position: fixed;
+            width: 100%;
+            bottom: 0;
+            color: #fff;
+            transition: background-color 0.5s;
+        }
+
+        .dark-mode footer {
+            background-color: var(--footer-bg-color-dark);
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <!-- Logo -->
+        <a href="jogos.html">
+            <img src="logo.png" alt="Logo" width="70px">
+        </a>
+
+        <!-- Theme Toggle Button -->
+        <div class="theme-toggle-container" id="themeToggle">
+            <img src="tema.png" alt="Trocar Tema">
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main>
+        <!-- Game Container -->
+        <div id="game-container">
+            <h1>Jogo de Concentração</h1>
+            <p id="instructions">Clique no círculo azul!</p>
+            <div id="shape"></div>
+            <p id="score">Pontuação: 0</p>
+        </div>
+
+        <!-- Side Image -->
+        <img src="jg2.png" alt="Imagem do jogo" class="side-image">
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <p>© 2024 Técnico em Inclusão. Todos os direitos reservados.</p>
+    </footer>
+
+    <script>
+        const themeToggleButton = document.getElementById('themeToggle');
+        const body = document.body;
+
+        themeToggleButton.addEventListener('click', () => {
+            body.classList.toggle('dark-mode');
+        });
+
+        // Variáveis do jogo
+        const shape = document.getElementById('shape');
+        const scoreDisplay = document.getElementById('score');
+        let score = 0;
+        let interval;
+        let shapeTimer;
+
+        // Função para gerar posição aleatória do círculo
+        function getRandomPosition() {
+            const containerWidth = document.getElementById('game-container').offsetWidth;
+            const containerHeight = document.getElementById('game-container').offsetHeight;
+            const shapeSize = shape.offsetWidth;
+
+            const x = Math.floor(Math.random() * (containerWidth - shapeSize));
+            const y = Math.floor(Math.random() * (containerHeight - shapeSize));
+
+            return { x, y };
+        }
+
+        // Função para mudar a cor e posição do círculo
+        function changeShape() {
+            const { x, y } = getRandomPosition();
+            shape.style.left = `${x}px`;
+            shape.style.top = `${y}px`;
+
+            // Escolher uma nova cor para o círculo
+            const colors = ['blue', 'green', 'red', 'yellow', 'purple'];
+            const newColor = colors[Math.floor(Math.random() * colors.length)];
+            shape.style.backgroundColor = newColor;
+        }
+
+        // Função que aumenta a pontuação
+        function incrementScore() {
+            score++;
+            scoreDisplay.textContent = `Pontuação: ${score}`;
+        }
+
+        // Função que reinicia o jogo quando o tempo se esgota
+        function handleGameOver() {
+            alert("Tempo esgotado! Sua pontuação final foi: " + score);
+            clearInterval(interval);
+            score = 0;
+            scoreDisplay.textContent = `Pontuação: ${score}`;
+            startGame();
+        }
+
+        // Função para começar o jogo
+        function startGame() {
+            interval = setInterval(() => {
+                changeShape();
+            }, 3000); // Muda o círculo a cada 3 segundos
+
+            shape.addEventListener('click', () => {
+                incrementScore();
+                changeShape();
+            });
+
+            shapeTimer = setTimeout(handleGameOver, 30000); // Game over após 30 segundos
+        }
+
+        // Inicia o jogo
+        startGame();
+    </script>
+</body>
+
+</html>

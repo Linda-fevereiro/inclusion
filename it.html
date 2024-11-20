@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inclusion Technician - Ensino Infantil</title>
+    <style>
+        :root {
+            --font-link-header: "Bebas Neue", sans-serif;
+            --font-texto: "Saira", sans-serif;
+            --background-color: LightBlue; /* Tema claro */
+            --text-color: #000000;
+            --button-bg-color: #e0e0e0;
+            --button-text-color: #000000;
+            --menu-link-color: #000000;
+            --menu-link-hover-color: #007bff;
+            --form-bg-color: #ffffff;
+            --button-bg-color-dark: #333333;
+            --button-bg-color-dark-hover: #555555;
+            --text-color-dark: #ffffff;
+            --video-bg-color: linear-gradient(lightgreen, yellow); /* Mescla das cores */
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: var(--background-color);
+            color: var(--text-color);
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+        .dark-mode {
+    --background-color: MidnightBlue; /* Dark background */
+    --text-color: #ffffff; /* Dark text */
+}
+        button {
+            padding: 5px;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        button.dark:hover {
+            opacity: 0.8;
+            background-color: LightSteelBlue;
+        }
+
+        body.dark-mode {
+            --background-color: MidnightBlue;
+            --text-color: #ffffff;
+            --button-bg-color: #333333;
+            --button-text-color: #ffffff;
+        }
+        
+        .theme-toggle-container {
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            z-index: 1000;
+        }
+
+        header {
+            width: 100%;
+            padding: 10px 20px;
+            background: linear-gradient(135deg, LightBlue, lightgreen);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: relative;
+        }
+
+        .menu {
+            display: flex;
+            align-items: center;
+            position: relative;
+        }
+
+        .menu img {
+            height: 50px;
+            margin-right: 10px;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+
+        .menu img:hover {
+            transform: scale(1.1);
+        }
+
+        .dropdown {
+            display: none;
+            position: absolute;
+            background-color: white;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            padding: 10px;
+            z-index: 1;
+        }
+
+        .dropdown a {
+            color: #000;
+            text-decoration: none;
+            display: block;
+            padding: 5px;
+            transition: background 0.3s;
+        }
+
+        .dropdown a:hover {
+            background: #f0f0f0;
+        }
+
+        
+        .theme-toggle-container img {
+            height: 30px;
+            cursor: pointer;
+        }
+
+        h1, h4 {
+            text-align: center;
+            color: yellow;
+            animation: fadeIn 1s;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        main {
+            padding: 20px;
+            width: 100%;
+            max-width: 1200px;
+            margin-top: 20px;
+            animation: slideIn 0.5s;
+        }
+
+        @keyframes slideIn {
+            from { transform: translateY(-20px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        .video-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+        }
+
+        .video-item {
+            background-color: rgba(255, 255, 255, 0.8);
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            width: calc(33.333% - 20px);
+            box-sizing: border-box;
+            padding: 10px;
+            text-align: center;
+            transition: transform 0.2s;
+        }
+
+        .video-item:hover {
+            transform: scale(1.05);
+            animation: bounce 0.3s forwards;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+            40% { transform: translateY(-10px); }
+            60% { transform: translateY(-5px); }
+        }
+
+        .video-item video {
+            width: 100%;
+            border-radius: 5px;
+            background: var(--video-bg-color); /* Mescla das cores nos vídeos */
+            animation: fadeIn 1s;
+        }
+
+        .slideshow {
+            position: relative;
+            max-width: 100%;
+            margin: 20px auto;
+            text-align: center;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+
+        .slide {
+            display: none;
+        }
+
+        .dots {
+            text-align: center;
+            padding: 10px 0;
+        }
+
+        .dot {
+            cursor: pointer;
+            height: 15px;
+            width: 15px;
+            margin: 0 2px;
+            background-color: #bbb;
+            border-radius: 50%;
+            display: inline-block;
+            transition: background-color 0.6s ease;
+        }
+
+        .active, .dot:hover {
+            background-color: #717171;
+        }
+
+        #certificado {
+            display: none;
+            margin-top: 20px;
+            background-color: yellow;
+            color: black;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            animation: bounce 1s infinite alternate;
+        }
+
+        @keyframes bounce {
+            from { transform: translateY(0); }
+            to { transform: translateY(-10px); }
+        }
+
+        @media (max-width: 768px) {
+            .video-item {
+                width: calc(50% - 20px);
+            }
+        }
+
+        @media (max-width: 480px) {
+            .video-item {
+                width: calc(100% - 20px);
+            }
+
+            header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            .footer {
+  text-align: center;
+  padding: 10px;
+  background: #333;
+  color: white;
+  position: relative;
+  bottom: 0;
+  width: 100%;
+}
+
+.footer-box {
+
+            padding: 10px;
+            background-color: #d3d3d3;
+            color: rgb(46, 45, 45);
+            position: relative;
+            bottom: 0;
+            width: 100%;
+            height: 50px;
+            box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
+}
+a {
+            
+            padding: 5px 10px; /* Diminuindo o tamanho do botão */
+            border-radius: 5px; /* Bordas arredondadas */
+            display: inline-block; /* Para que o padding funcione corretamente */
+            margin-left: 20px; /* Espaçamento à esquerda */
+            font-family: 'Tifontmes New Roman', Times, serif;
+            
+        }  
+        #certificateContainer {
+    position: relative;
+    text-align: center;
+}
+
+#certificateImage {
+    width: 100%; /* Adjust as needed */
+    height: auto;
+    display: none; /* Hide the image initially */
+}
+        
+       }
+
+    </style>
+</head>
+<body>
+    <header>
+        <div class="menu">
+            <img src="logo.png" alt="logo.png" id="logo">
+            <div class="dropdown" id="dropdown">
+                <a href="jogos.html">Jogos</a>
+                <a href="perfil.html">Perfil</a>
+                <a href="it3.html">Apoio Psicológico</a>
+            </div>
+        </div>
+        <div class="theme-toggle-container">
+            <button id="themeToggle">
+                <img src="tema.png" alt="Trocar Tema">
+            </button>
+        </div>
+    </header>
+
+    <h1>AULAS</h1>
+    <h4 style="color: rgb(38, 228, 38); text-align: center; margin-top: 10px;">Ensino infantil</h4>
+    <hr>
+
+    <main id="mainContent" style="display: none;">
+        <section id="videos" class="video-grid">
+            <img src="ursinhos.png.png" alt="">
+            <div class="video-item">
+                <h2>Aula 1</h2>
+                <video controls id="video1">
+                    <source src="video3.mp4" type="video/mp4">
+                    Seu navegador não suporta o elemento de vídeo.
+                </video>
+            </div>
+            <div class="video-item">
+                <h2>Aula 2</h2>
+                <video controls id="video2">
+                    <source src="videoplayback.mp4" type="video/mp4">
+                    Seu navegador não suporta o elemento de vídeo.
+                </video>
+            </div>
+            <div class="video-item">
+                <h2>Aula 3</h2>
+                <video controls id="video3">
+                    <source src="GUGUDADA - A Música das Vogais (animação infantil).mp4" type="video/mp4">
+                    Seu navegador não suporta o elemento de vídeo.
+                </video>
+            </div>
+            <img src="irmaosursos.png" width="300px" height="300px">
+            <div class="video-item">
+                <h2>Aula 4</h2>
+                <video controls id="video4">
+                    <source src="videoplayback.mp4.crdownload" type="video/mp4">
+                    Seu navegador não suporta o elemento de vídeo.
+                </video>
+            </div>
+            <div class="video-item">
+                <h2>Aula 5</h2>
+                <video controls id="video5">
+                    <source src="video5.mp4" type="video/mp4">
+                    Seu navegador não suporta o elemento de vídeo.
+                </video>
+            </div>
+            <div class="video-item">
+                <h2>Aula 6</h2>
+                <video controls id="video6">
+                    <source src="videoplayback.mp47.crdownload" type="video/mp4">
+                    Seu navegador não suporta o elemento de vídeo.
+                </video>
+            </div>
+            <img src="image-removebg-preview (2).png" width="200px" height="300px">
+        </section>
+
+        <section class="slideshow">
+            <div class="slideshow-container">
+                <div class="slide">
+                    <video controls>
+                        <source src="videoslide1.mp4" type="video/mp4">
+                        Seu navegador não suporta o elemento de vídeo.
+                    </video>
+                </div>
+                <div class="slide">
+                    <video controls>
+                                                <source src="videosilede2.mp4" type="video/mp4">
+                        Seu navegador não suporta o elemento de vídeo.
+                    </video>
+                </div>
+                <div class="slide">
+                    <video controls>
+                        <source src="sile3.crdownload" type="video/mp4">
+                        Seu navegador não suporta o elemento de vídeo.
+                    </video>
+                </div>
+            </div>
+            <img src="pandinha.png" alt="" width="200px" height="200px">
+
+            <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+            <a class="next" onclick="plusSlides(1)">&#10095;</a>
+        </section>
+
+        <div class="dots">
+            <span class="dot" onclick="currentSlide(1)"></span>
+            <span class="dot" onclick="currentSlide(2)"></span>
+            <span class="dot" onclick="currentSlide(3)"></span>
+        </div>
+        <div id="certificateContainer">
+            <img id="certificateImage" src="2.png" alt="Certificate" style="display: none;">
+            <button id="certificado" onclick="exibirCertificado()">Obter Certificado</button>
+            </div>
+        <a href="login.html" style="text-decoration: none; background-color: #668cb4; color: rgba(255, 0, 0, 0.644);font-size: 15px;
+        font-family: 'Times New Roman', Times, serif; padding: 7px; border-radius: 30px;">VOLTAR</a>
+    </main>
+     
+<footer class="footer-box">
+        <p>© 2024 Inclusion Technician. Todos os direitos reservados.</p>
+    </footer>
+    <div class="sound-toggle-container" style=" position: fixed; bottom: 10px;
+    left: 10px;
+    z-index: 1000;
+    display: flex;
+    gap: 10px;">
+        <button class="sound" id="soundToggle" style=" background-color: var(--button-bg-color);
+        color: var(--button-text-color);
+        padding: 5px;
+        font-size: 12px;
+        border-radius: 5px;"><img src="son.png" alt="som" style="height: 30px;"></button>
+     
+
+    <audio id="calmSound" loop>
+        <source src="Forgotten_Moon_-_Endless_Space_2__Lost_Symphony_Original_Soundtrack_[_YouConvert.net_].mp3"> <!-- Base64 encoded audio -->
+        Seu navegador não suporta o elemento de áudio.
+    </audio>
+
+
+    <script>
+        // Lógica do Slideshow
+        let slideIndex = 1;
+        showSlides(slideIndex);
+
+        function plusSlides(n) {
+            showSlides(slideIndex += n);
+        }
+
+        function currentSlide(n) {
+            showSlides(slideIndex = n);
+        }
+
+        function showSlides(n) {
+            let slides = document.getElementsByClassName("slide");
+            let dots = document.getElementsByClassName("dot");
+            if (n > slides.length) { slideIndex = 1 }
+            if (n < 1) { slideIndex = slides.length }
+            for (let i = 0; i < slides.length; i++) {
+                slides[i].style.display = "none";
+            }
+            for (let i = 0; i < dots.length; i++) {
+                dots[i].className = dots[i].className.replace(" active", "");
+            }
+            slides[slideIndex - 1].style.display = "block";
+            dots[slideIndex - 1].className += " active";
+        }
+
+        // Lógica para exibir certificado
+        function exibirCertificado() {
+            const certificadoBtn = document.getElementById('certificado');
+            const certificateImage = document.getElementById('certificateImage');
+
+
+    certificateImage.style.display = 'block'; // Show the certificate image
+   
+            alert("Certificado emitido com sucesso!");
+            certificadoBtn.style.display = "none"; // Esconder o botão após a emissão
+        }
+        
+
+        // Lógica para exibir conteúdo após carregamento
+        document.addEventListener("DOMContentLoaded", function() {
+            document.getElementById("mainContent").style.display = "block";
+        });
+
+        // Lógica para troca de tema
+        const themeToggle = document.getElementById('themeToggle');
+const body = document.body;
+
+// Check for saved theme preference on page load
+const currentTheme = localStorage.getItem('theme');
+if (currentTheme) {
+    body.classList.toggle('dark-mode', currentTheme === 'dark');
+}
+
+// Add event listener to the toggle button
+themeToggle.addEventListener('click', () => {
+    body.classList.toggle('dark-mode');
+
+    // Save user preference in local storage
+    if (body.classList.contains('dark-mode')) {
+        localStorage.setItem('theme', 'dark');
+    } else {
+        localStorage.setItem('theme', 'light');
+    }
+            
+        });
+        const soundToggleButton = document.getElementById('soundToggle');
+    const calmingSound = document.getElementById('calmSound');
+    let isSoundPlaying = false;
+
+    soundToggleButton.addEventListener('click', function () {
+        if (isSoundPlaying) {
+            calmingSound.pause();
+            isSoundPlaying = false;
+        } else {
+            calmingSound.play();
+            isSoundPlaying = true;
+        }
+    });
+
+        // Lógica do menu dropdown
+        document.getElementById("logo").addEventListener("click", function() {
+            const dropdown = document.getElementById("dropdown");
+            dropdown.style.display = dropdown.style.display === "block" ? "none" : "block";
+        });
+
+        // Fechar o dropdown ao clicar fora
+        window.onclick = function(event) {
+            if (!event.target.matches('#logo')) {
+                const dropdown = document.getElementById("dropdown");
+                if (dropdown.style.display === "block") {
+                    dropdown.style.display = "none";
+                }
+            }
+        };
+        
+    </script>
+</body>
+</html>
+

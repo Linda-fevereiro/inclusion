@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inclusion Technician - Jogos</title>
+    <style>
+        :root {
+            --background-color-light: linear-gradient(135deg, LightBlue, LightGreen, yellow);
+            --text-color-light: #333;
+            --container-bg-color: #e0f7fa;
+            --button-bg-color: #007bff;
+            --button-hover-bg-color: #0056b3;
+            --text-color-dark: #0e0d0d;
+            --background-color-dark: linear-gradient(135deg, MidnightBlue, green, red);
+            --container-bg-dark: #555;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: var(--background-color-light);
+            color: var(--text-color-light);
+            transition: all 0.3s ease-in-out;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        header {
+            
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        header img {
+            height: 50px;
+            cursor: pointer;
+        }
+
+        h1, h2 {
+            text-align: center;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        .image-container {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-top: 50px;
+            flex-wrap: wrap;
+        }
+
+        .image-container div {
+            text-align: center;
+        }
+
+        .image-container img {
+            width: 250px;
+            height: auto;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+
+        .image-container img:hover {
+            transform: scale(1.1);
+        }
+
+        .footer-box {
+            background-color: #d3d3d3;
+            padding: 10px;
+            text-align: center;
+            width: 100%;
+            height: 50px;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
+            margin-top: 40px;
+        }
+
+        /* Responsividade para dispositivos móveis */
+        @media (max-width: 768px) {
+            .image-container {
+                gap: 15px;
+                margin-top: 30px;
+            }
+
+            .image-container img {
+                width: 180px;
+            }
+
+            a {
+                font-size: 13px;
+                padding: 5px;
+            }
+
+            header {
+                padding: 5px;
+            }
+        }
+
+        /* Responsividade para tablets */
+        @media (max-width: 1024px) {
+            .image-container img {
+                width: 220px;
+            }
+        }
+        .theme-toggle-container {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background-color: rgb(199, 194, 194);
+        }
+
+        .theme-toggle-container img {
+            height: 30px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <!-- Logo agora com link para voltar à página index -->
+        <a href="it3.html">
+            <img src="logo.png" alt="Logo">
+        </a>
+        <div class="theme-toggle-container">
+            <img src="tema.png" alt="Trocar Tema" id="themeToggle">
+        </div>
+    </header>
+
+    <h1>Jogos Interativos</h1>
+
+    <div class="image-container">
+        <div>
+            <a href="jogo1.html">
+                <img src="quiz.png" alt="Página 1">
+            </a>
+            <p>Jogo de Perguntas e Respostas</p> <!-- Legenda para a primeira imagem -->
+        </div>
+        <div>
+            <a href="jogo2.html">
+                <img src="circulo.png" alt="Página 2">
+            </a>
+            <p>Jogo de aperte o Círculo Azul</p> <!-- Legenda para a segunda imagem -->
+        </div>
+        <div>
+            <a href="jogo3.html">
+                <img src="numero.png" alt="Página 3">
+            </a>
+            <p>Jogo de Coloque os números na sequência correta</p> <!-- Legenda para a terceira imagem -->
+        </div>
+    </div>
+
+    <footer class="footer-box">
+        <p>© 2024 Inclusion Technician. Todos os direitos reservados.</p>
+    </footer>
+
+    <script>
+        const themeToggle = document.getElementById('themeToggle');
+        let isDarkMode = false;
+
+        themeToggle.addEventListener('click', () => {
+            if (isDarkMode) {
+                document.body.style.background = 'var(--background-color-light)';
+                document.body.style.color = 'var(--text-color-light)';
+                isDarkMode = false;
+            } else {
+                document.body.style.background = 'var(--background-color-dark)';
+                document.body.style.color = 'var(--text-color-dark)';
+                isDarkMode = true;
+            }
+        });
+    </script>
+
+</body>
+</html>

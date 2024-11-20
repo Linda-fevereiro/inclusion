@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inclusion Technician - Banco de Currículos</title>
+    <style>
+        :root {
+            --background-color-light: linear-gradient(135deg, LightBlue, LightGreen, yellow);
+            --text-color-light: #333;
+            --container-bg-color: #e0f7fa;
+            --button-bg-color: #007bff;
+            --button-hover-bg-color: #0056b3;
+            --text-color-dark: #0f0f0f;
+            --background-color-dark: linear-gradient(135deg, MidnightBlue, green, red);
+            --container-bg-dark: #555;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: var(--background-color-light);
+            color: var(--text-color-light);
+            transition: all 0.3s ease-in-out;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        header img {
+            height: 50px;
+            cursor: pointer;
+        }
+
+        h1, h2 {
+            text-align: center;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        .form-container, .curriculo {
+            background: var(--container-bg-color);
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+            max-width: 600px;
+            margin: 20px auto;
+
+        }
+
+        label {
+            font-weight: bold;
+            display: block;
+            margin: 10px 0 5px;
+        }
+
+        input, select, textarea, button {
+            min-width: 570px;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+
+        button {
+            background-color: var(--button-bg-color);
+            color: white;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        button:hover {
+            background-color: var(--button-hover-bg-color);
+        }
+
+        .delete-btn {
+            background-color: red;
+            color: white;
+            cursor: pointer;
+        }
+
+        .delete-btn:hover {
+            background-color: darkred;
+        }
+
+        .theme-toggle-container {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background-color: rgb(199, 194, 194);
+        }
+
+        .theme-toggle-container img {
+            height: 30px;
+            cursor: pointer;
+        }
+
+        @media (max-width: 768px) {
+            .form-container, .curriculo {
+                max-width: 90%;
+                min-width: auto;
+            }
+
+            input, select, textarea {
+                min-width: auto;
+            }
+        }
+        .footer-box {
+            background-color: #d3d3d3;
+            padding: 10px;
+            text-align: center;
+            position: relative;
+            bottom: 0;
+            width: 100%;
+            height: 50px;
+            box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <img src="logo.png" alt="Logo">
+        <div class="theme-toggle-container">
+            <img src="tema.png" alt="Trocar Tema" id="themeToggle">
+        </div>
+    </header>
+
+    <h1>Banco de Currículos</h1>
+
+    <div class="form-container">
+        <h2>Enviar Currículo</h2>
+        <form id="curriculoForm">
+            <label for="nome">Nome:</label>
+            <input type="text" id="nome" name="nome" required>
+
+            <label for="tipoContato">Tipo de Contato:</label>
+            <select id="tipoContato" name="tipoContato" required>
+                <option value="email">Email</option>
+                <option value="telefone">Telefone</option>
+            </select>
+
+            <label for="contato">Contato:</label>
+            <input type="text" id="contato" name="contato" required>
+
+            <label for="descricao">Habilidaes e/ou Experiências:</label>
+            <textarea id="descricao" name="descricao" rows="4" required></textarea>
+
+            <label for="imagem">Imagem do Currículo:</label>
+            <input type="file" id="imagem" name="imagem" accept="image/*" required>
+
+            <button type="submit">Enviar Currículo</button>
+        </form>
+    </div>
+
+    <div id="curriculosContainer">
+        <h2>Currículos Disponíveis</h2>
+    </div>
+    <a href="index.html" style="text-decoration: none; background-color: #668cb4; color: rgba(255, 0, 0, 0.644);font-size: 15px;
+        font-family: 'Times New Roman', Times, serif; padding: 7px; border-radius: 30px; margin-top: 20px; ">VOLTAR</a>
+        <footer class="footer-box">
+            <p>© 2024 Inclusion Technician. Todos os direitos reservados.</p>
+        </footer>
+
+    <script>
+        const form = document.getElementById('curriculoForm');
+        const curriculosContainer = document.getElementById('curriculosContainer');
+        const themeToggle = document.getElementById('themeToggle');
+        let isDarkTheme = false;
+
+        let curriculos = JSON.parse(localStorage.getItem('curriculos')) || [];
+
+        function renderCurriculos() {
+            curriculosContainer.innerHTML = '<h2>Currículos Disponíveis</h2>';
+            curriculos.forEach((curriculo, index) => {
+                const curriculoDiv = document.createElement('div');
+                curriculoDiv.className = 'curriculo';
+
+                curriculoDiv.innerHTML = `
+                    <h3>${curriculo.nome}</h3>
+                    <p><strong>Contato:</strong> ${curriculo.contato}</p>
+                    <p>${curriculo.descricao}</p>
+                    <img src="${curriculo.imagem}" alt="Currículo de ${curriculo.nome}">
+                `;
+                curriculosContainer.appendChild(curriculoDiv);
+            });
+        }
+
+        themeToggle.addEventListener('click', () => {
+            isDarkTheme = !isDarkTheme;
+            document.body.style.setProperty('--background-color-light', isDarkTheme ? 'var(--background-color-dark)' : 'linear-gradient(135deg, LightBlue, LightGreen, yellow)');
+            document.body.style.setProperty('--text-color-light', isDarkTheme ? 'var(--text-color-dark)' : '#333');
+            document.body.style.setProperty('--container-bg-color', isDarkTheme ? 'var(--container-bg-dark)' : '#e0f7fa');
+        });
+
+        form.addEventListener('submit', function (e) {
+            e.preventDefault();
+            const nome = document.getElementById('nome').value;
+            const tipoContato = document.getElementById('tipoContato').value;
+            const contato = document.getElementById('contato').value;
+            const descricao = document.getElementById('descricao').value;
+            const imagemInput = document.getElementById('imagem').files[0];
+
+            const reader = new FileReader();
+            reader.onload = function () {
+                const imagem = reader.result;
+                const curriculo = { nome, tipoContato, contato, descricao, imagem };
+                curriculos.push(curriculo);
+                localStorage.setItem('curriculos', JSON.stringify(curriculos));
+                renderCurriculos();
+                form.reset();
+            };
+            reader.readAsDataURL(imagemInput);
+        });
+
+        renderCurriculos();
+    </script>
+</body>
+</html>

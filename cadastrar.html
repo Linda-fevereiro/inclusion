@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inclusion Technician - Cadastro </title>
+    <style>
+        /* O estilo permanece o mesmo */
+        :root {
+            --font-link-header: "Bebas Neue", sans-serif;
+            --font-texto: "Saira", sans-serif;
+            --background-color: rgb(186, 232, 247);
+            --text-color: #f0e9e9;
+            --button-bg-color: #e0e0e0;
+            --button-text-color: #ccc2c2;
+            --form-bg-color: rgb(66, 107, 161);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: linear-gradient(135deg, LightBlue, LightGreen, yellow);
+            color: var(--text-color);
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            padding: 20px;
+            overflow: auto;
+        }
+
+        header {
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            padding: 10px;
+            position: fixed;
+            top: 0;
+            left: 0;
+            background: var(--background-color);
+            z-index: 1000;
+        }
+
+        .menu img {
+            height: 50px;
+            width: auto;
+        }
+
+        .theme-toggle {
+            display: flex;
+            align-items: center;
+        }
+
+        .theme-toggle img {
+            height: 30px;
+            width: auto;
+        }
+
+        main {
+            flex-grow: 1; /* Permite que o main ocupe o espaço disponível */
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            gap: 30px;
+            margin-top: 80px;
+            flex-wrap: wrap;
+        }
+
+        .form-container {
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            flex-direction: column;
+            width: 100%;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        .form-container img {
+            max-width: 100%;
+            height: auto;
+        }
+
+        .container {
+            background: var(--form-bg-color);
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+        }
+
+        .container:hover {
+            transform: scale(1.02);
+        }
+
+        h2 {
+            margin-bottom: 15px;
+            color: #faf2f2;
+            text-align: center;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            color: #f5e7e7;
+        }
+
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 15px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            height: 45px;
+        }
+
+        .form-row {
+            display: flex;
+            justify-content: space-between;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .form-group.wide {
+            flex: 1 1 48%;
+        }
+
+        .form-group input[type="submit"] {
+            background-color: #007bff;
+            color: #ffffff;
+            border: none;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: bold;
+            padding: 10px;
+            border-radius: 4px;
+            transition: background-color 0.3s;
+        }
+
+        .form-group input[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+
+        body.dark-mode {
+            --background-color: MidnightBlue;
+            --text-color: #141313;
+            --button-bg-color: #faeeee;
+            --button-text-color: #ffffff;
+            --form-bg-color: #17083b;
+        }
+
+        .footer-box {
+            text-align: center;
+            padding: 10px;
+            background-color: #d3d3d3;
+            color: rgb(46, 45, 45);
+            position: relative;
+            bottom: 0;
+            min-width:  500px;
+            height: 50px;
+            box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
+            margin-top: 60px;
+        }
+
+        /* Media Queries para Responsividade */
+        @media (max-width: 768px) {
+            main {
+                flex-direction: column;
+                align-items: center;
+                gap: 20px;
+            }
+
+            .form-container {
+                width: 90%;
+            }
+
+            .form-container img {
+                width: 80%;
+            }
+
+            header {
+                padding: 15px;
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .theme-toggle img {
+                height: 25px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            header {
+                padding: 10px;
+            }
+
+            .menu img {
+                height: 50px;
+            }
+
+            .theme-toggle img {
+                height: 20px;
+            }
+
+            .container {
+                padding: 20px;
+            }
+
+            .form-group input,
+            .form-group select {
+                padding: 12px;
+            }
+
+            .form-group input[type="submit"] {
+                font-size: 12px;
+                padding: 8px;
+            }
+
+            .form-container img {
+                width: 100%;
+            }
+            a{
+                padding: 5px 10px; /* Diminuindo o tamanho do botão */
+            border-radius: 5px; /* Bordas arredondadas */
+            /* Para que o padding funcione corretamente */
+            margin-left: 20px; /* Espaçamento à esquerda */
+            overflow: hidden;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="menu">
+            <img src="logo.png" alt="Logo">
+        </div>
+        <div class="theme-toggle">
+            <button class="dark" id="themeToggle"><img src="tema.png" alt="Tema" ></button>
+        </div>
+    </header>
+
+    <main>
+        <div class="form-container">
+            <div class="container" id="registrationContainer">
+                <h2>Formulário de Inscrição</h2>
+                <form id="registrationForm" onsubmit="saveDataAndRedirect(event)">
+                    <div class="form-row">
+                        <div class="form-group wide">
+                            <label for="studentName">Nome do Aluno:</label>
+                            <input type="text" id="studentName" name="studentName" required>
+                        </div>
+                        <div class="form-group wide">
+                            <label for="guardianName">Nome do Responsável:</label>
+                            <input type="text" id="guardianName" name="guardianName" required>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group wide">
+                            <label for="age">Idade do Aluno:</label>
+                            <input type="number" id="age" name="age" min="1" required>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group wide">
+                            <label for="password">Senha:</label>
+                            <input type="password" id="password" name="password" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <input type="submit" value="Enviar">
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="form-container">
+            <img src="login.png" alt="Imagem Representativa">
+        </div>
+        <a href="index.html"  class="butao" style="text-decoration: none; background-color: #668cb4; color: rgba(255, 0, 0, 0.644);font-size: 15px;
+        font-family: 'Times New Roman', Times, serif; padding: 7px; border-radius: 30px;  ">VOLTAR</a>
+    </main>
+
+    <footer class="footer-box">
+        <p>© 2024 Inclusion Technician. Todos os direitos reservados.</p>
+    </footer>
+
+    <script>
+        let isReading = false;
+        let speechSynthesisInstance = null;
+
+        function saveDataAndRedirect(event) {
+            event.preventDefault();
+
+            var studentName = document.getElementById('studentName').value;
+            var age = parseInt(document.getElementById('age').value);
+            var guardianName = document.getElementById('guardianName').value;
+            var password = document.getElementById('password').value;
+
+            // Save data to local storage (for demo purposes)
+            localStorage.setItem('studentName', studentName);
+            localStorage.setItem('age', age);
+            localStorage.setItem('guardianName', guardianName);
+            localStorage.setItem('password', password);
+
+            // Redirection logic based on age
+            if (age >= 4            && age <= 6) {
+                window.location.href = "it.html";  // Página para idades de 4 a 6
+            } else if (age >= 7 && age <= 11) {
+                window.location.href = "it2.html";  // Página para idades de 7 a 11
+            } else {
+                alert("Idade não permitida para este cadastro.");
+            }
+        }
+
+        // Alternar tema claro/escuro
+        document.getElementById('themeToggle').addEventListener('click', function () {
+            document.body.classList.toggle('dark-mode');
+
+            // Alterar ícone do botão conforme o tema
+            const img = this.querySelector('img');
+            if (document.body.classList.contains('dark-mode')) {
+                img.src = "tema.png"; // Substitua pelo ícone do tema escuro
+            } else {
+                img.src = "tema.png"; // Substitua pelo ícone do tema claro
+            }
+        });
+
+        // Função de leitura
+        function toggleReading() {
+            const textToRead = document.body.innerText;
+
+            if (!isReading) {
+                if (!speechSynthesisInstance) {
+                    speechSynthesisInstance = new SpeechSynthesisUtterance();
+                    speechSynthesisInstance.lang = "pt-BR";
+                }
+                speechSynthesisInstance.text = textToRead;
+
+                speechSynthesis.speak(speechSynthesisInstance);
+                isReading = true;
+
+                speechSynthesisInstance.onend = () => {
+                    isReading = false;
+                };
+            } else {
+                speechSynthesis.cancel();
+                isReading = false;
+            }
+        }
+
+        // Adiciona evento de leitura ao carregar a página
+        document.addEventListener('DOMContentLoaded', () => {
+            const leituraButton = document.createElement('button');
+            leituraButton.textContent = "Leitura";
+            leituraButton.style.position = "fixed";
+            leituraButton.style.bottom = "20px";
+            leituraButton.style.right = "20px";
+            leituraButton.style.padding = "10px 20px";
+            leituraButton.style.fontSize = "14px";
+            leituraButton.style.backgroundColor = "#007bff";
+            leituraButton.style.color = "#ffffff";
+            leituraButton.style.border = "none";
+            leituraButton.style.borderRadius = "4px";
+            leituraButton.style.cursor = "pointer";
+            leituraButton.onclick = toggleReading;
+
+            document.body.appendChild(leituraButton);
+        });
+        document.getElementById('cadastroForm').addEventListener('submit', function(event) {
+        event.preventDefault(); // Impede o comportamento padrão de envio do formulário
+        
+        const studentName = document.getElementById('studentName').value;
+        const guardianName = document.getElementById('guardianName').value;
+        const age = document.getElementById('age').value;
+
+        // Armazena os dados no LocalStorage
+        localStorage.setItem('studentName', studentName);
+        localStorage.setItem('guardianName', guardianName);
+        localStorage.setItem('age', age);
+
+        alert('Dados salvos com sucesso! Você será redirecionado.');
+        window.location.href = 'perfil.html'; // Redireciona para a página de perfil
+    });
+    </script>
+</body>
+</html>
+

@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inclusion Technician - Perfil</title>
+    <style>
+        :root {
+            --background-color-light: linear-gradient(135deg, LightBlue, LightGreen, yellow);
+            --text-color-light: #333;
+            --container-bg-color: #e0f7fa;
+            --button-bg-color: #007bff;
+            --button-hover-bg-color: #0056b3;
+        }
+
+        body {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            font-family: Arial, sans-serif;
+            background: var(--background-color-light);
+            color: var(--text-color-light);
+            padding: 20px;
+            text-align: center;
+            animation: fadeIn 1s ease-in-out;
+            overflow-x: hidden;
+            transition: all 0.3s ease-in-out;
+        }
+
+    
+
+        main {
+            flex-grow: 1; /* Permite que o main ocupe o espaço disponível */
+        }
+
+        h2 {
+            margin-bottom: 20px;
+            color: #ff5722;
+            font-size: 2.5em;
+            animation: bounce 1s infinite alternate;
+        }
+
+        .profile-info {
+            background: var(--container-bg-color);
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+            max-width: 600px;
+            margin: auto;
+            animation: slideIn 0.5s ease-in-out;
+        }
+        .sound-toggle-container, .read-toggle-container {
+            position: fixed;
+            bottom: 10px;
+            left: 10px;
+            z-index: 1000;
+            display: flex;
+            gap: 10px;
+        }
+
+        button.sound, button.read {
+            background-color: var(--button-bg-color);
+            color: var(--button-text-color);
+            padding: 5px;
+            font-size: 12px;
+            border-radius: 5px;
+        }
+
+
+        .profile-info p {
+            margin: 10px 0;
+            font-size: 1.2em;
+            animation: fadeIn 0.5s ease-in forwards;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .header img {
+            height: 50px;
+            cursor: pointer;
+        }
+
+        .theme-toggle-container img {
+            height: 30px;
+            cursor: pointer;
+        }
+
+        .menu {
+            display: flex;
+            align-items: center;
+            position: relative;
+        }
+
+        .menu img {
+            height: 50px;
+            margin-right: 10px;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+
+        .menu img:hover {
+            transform: scale(1.1);
+        }
+
+        .dropdown {
+            display: none;
+            position: absolute;
+            background-color: white;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            padding: 10px;
+            z-index: 1;
+        }
+
+        .dropdown a {
+            color: #000;
+            text-decoration: none;
+            display: block;
+            padding: 5px;
+            transition: background 0.3s;
+        }
+
+        .dropdown a:hover {
+            background: #f0f0f0;
+        }
+
+        footer {
+             text-align: center;
+            padding: 10px;
+            background-color: #d3d3d3;
+            color: rgb(46, 45, 45);
+            position: relative;
+            width: 100%;
+            height: 50px;
+            margin: auto;
+            bottom: 0;
+            box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
+            margin-top: 80px;
+        }
+        .back-button {
+    position: fixed; /* Fixa o botão na tela */
+    top: 20px; /* Distância do topo */
+    right: 20px; /* Distância da direita */
+    background-color: #668cb4; /* Cor de fundo */
+    color: rgba(255, 0, 0, 0.644); /* Cor do texto */
+    font-size: 15px; /* Tamanho da fonte */
+    font-family: 'Times New Roman', Times, serif; /* Fonte */
+    padding: 7px 15px; /* Espaçamento interno */
+    border-radius: 30px; /* Bordas arredondadas */
+    text-decoration: none; /* Remove o sublinhado */
+    transition: background-color 0.3s; /* Transição suave para a cor de fundo */
+}
+
+.back-button:hover {
+    background-color: #0056b3; /* Cor de fundo ao passar o mouse */
+    color: white; /* Cor do texto ao passar o mouse */
+}
+
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        @keyframes bounce { from { transform: translateY(0); } to { transform: translateY(-10px); } }
+        @keyframes slideIn { from { transform: translateY(-20px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes scaleIn { from { transform: scale(0); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+        @keyframes fadeInImage { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+        @media (max-width: 768px) {
+            h2 { font-size: 2em; }
+            .profile-info p { font-size: 1em; }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="menu">
+            <img src="logo.png" alt="logo.png" id="logo" onclick="toggleDropdown()">
+            <div class="dropdown" id="dropdown">
+                <a href="jogos.html">Jogos</a>
+                <a href="it3.html">Apoio Psicológico</a>
+            </div>
+        </div>
+        
+    </header>
+
+    <h2>Página de Perfil</h2>
+    <div class="profile-info">
+        <p><strong>Nome do Aluno:</strong> <span id="profileStudentName"></span></p>
+        <p><strong>Nome do Responsável:</strong> <span id="profileGuardianName"></span></p>
+        <p><strong>Idade do Aluno:</strong> <span id="profileAge"></span></p>
+        <p><strong>Vídeos Assistidos:</strong> <span id="watchedVideosCount">0</span></p>
+    </div>
+
+    <div class="image-container">
+        <img src="perfil1.png" alt="Imagem 1" class="fade-in">
+        <img src="perfil2.png" alt="Imagem 2" class="fade-in">
+        <img src="perfil3.png" alt="Imagem 3" class="fade-in">
+    </div>
+    <a href="login.html" class="back-button">VOLTAR</a>
+
+    <footer>
+        <p>&copy; 2024 Inclusion Technician. Todos os direitos reservados.</p>
+    </footer>
+    <div class="sound-toggle-container">
+        <button class="read" id="readToggle"><img src="ler.png" alt="ler" style="height: 30px;"></button>
+    </div>
+
+    <script>
+        let utterance;
+        let isReading = false;
+    
+        const readToggleButton = document.getElementById('readToggle');
+    
+        readToggleButton.addEventListener('click', function () {
+            if (isReading) {
+                // Se a leitura estiver em andamento, interrompa-a
+                speechSynthesis.cancel();
+                isReading = false;
+                readToggleButton.innerHTML = '<img src="ler.png" alt="ler" style="height: 30px;">'; // Altere o ícone para "ler"
+            } else {
+                // Caso contrário, inicie a leitura
+                utterance = new SpeechSynthesisUtterance();
+                utterance.lang = 'pt-BR';
+    
+                // Obtém o texto visível da página (exceto o conteúdo de elementos não relevantes como scripts, estilos, etc.)
+                const textToRead = document.body.innerText;
+    
+                // Configura o texto para leitura
+                utterance.text = textToRead;
+                
+                // Inicia a leitura
+                speechSynthesis.speak(utterance);
+                isReading = true;
+    
+                // Altera o ícone para "parar" durante a leitura
+                readToggleButton.innerHTML = '<img src="ler.png" alt="parar" style="height: 30px;">'; // Troca o ícone para "parar"
+            }
+        });
+        
+    document.addEventListener('DOMContentLoaded', function() {
+        // Recupera os dados do LocalStorage
+        const studentName = localStorage.getItem('studentName') || 'Não informado';
+        const guardianName = localStorage.getItem('guardianName') || 'Não informado';
+        const age = localStorage.getItem('age') || 'Não informado';
+
+        // Preenche os dados na página
+        document.getElementById('profileStudentName').textContent = studentName;
+        document.getElementById('profileGuardianName').textContent = guardianName;
+        document.getElementById('profileAge').textContent = age;
+    });
+    </script>
+    
+</body>
+</html>
+
