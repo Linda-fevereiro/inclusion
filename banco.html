@@ -11,7 +11,7 @@
             --container-bg-color: #e0f7fa;
             --button-bg-color: #007bff;
             --button-hover-bg-color: #0056b3;
-            --text-color-dark: #0f0f0f;
+            --text-color-dark: #f0f0f0;
             --background-color-dark: linear-gradient(135deg, MidnightBlue, green, red);
             --container-bg-dark: #555;
         }
@@ -20,6 +20,9 @@
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 20px;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
             background: var(--background-color-light);
             color: var(--text-color-light);
             transition: all 0.3s ease-in-out;
@@ -37,9 +40,12 @@
             cursor: pointer;
         }
 
+        .container {
+            flex: 1;
+        }
+
         h1, h2 {
             text-align: center;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
 
         .form-container, .curriculo {
@@ -49,17 +55,16 @@
             box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
             max-width: 600px;
             margin: 20px auto;
-
         }
 
         label {
-            font-weight: bold;
             display: block;
-            margin: 10px 0 5px;
+            margin-bottom: 5px;
+            font-weight: bold;
         }
 
         input, select, textarea, button {
-            min-width: 570px;
+            width: 100%;
             padding: 10px;
             margin-bottom: 10px;
             border: 1px solid #ccc;
@@ -82,6 +87,7 @@
             background-color: red;
             color: white;
             cursor: pointer;
+            margin-top: 10px;
         }
 
         .delete-btn:hover {
@@ -92,34 +98,20 @@
             position: fixed;
             top: 20px;
             right: 20px;
-            background-color: rgb(199, 194, 194);
-        }
-
-        .theme-toggle-container img {
-            height: 30px;
-            cursor: pointer;
         }
 
         @media (max-width: 768px) {
             .form-container, .curriculo {
                 max-width: 90%;
-                min-width: auto;
-            }
-
-            input, select, textarea {
-                min-width: auto;
             }
         }
-        .footer-box {
-            background-color: #d3d3d3;
-            padding: 10px;
+
+        footer {
+            background-color: #333;
+            color: white;
             text-align: center;
-            position: relative;
-            bottom: 0;
-            width: 100%;
-            height: 50px;
-            box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
-            margin-top: 20px;
+            padding: 10px 0;
+            margin-top: auto;
         }
     </style>
 </head>
@@ -148,7 +140,7 @@
             <label for="contato">Contato:</label>
             <input type="text" id="contato" name="contato" required>
 
-            <label for="descricao">Habilidaes e/ou Experiências:</label>
+            <label for="descricao">Habilidades e/ou Experiências:</label>
             <textarea id="descricao" name="descricao" rows="4" required></textarea>
 
             <label for="imagem">Imagem do Currículo:</label>
@@ -158,14 +150,13 @@
         </form>
     </div>
 
-    <div id="curriculosContainer">
+    <div class="container" id="curriculosContainer">
         <h2>Currículos Disponíveis</h2>
     </div>
-    <a href="index.html" style="text-decoration: none; background-color: #668cb4; color: rgba(255, 0, 0, 0.644);font-size: 15px;
-        font-family: 'Times New Roman', Times, serif; padding: 7px; border-radius: 30px; margin-top: 20px; ">VOLTAR</a>
-        <footer class="footer-box">
-            <p>© 2024 Inclusion Technician. Todos os direitos reservados.</p>
-        </footer>
+
+    <footer>
+        <p>© 2024 Inclusion Technician. Todos os direitos reservados.</p>
+    </footer>
 
     <script>
         const form = document.getElementById('curriculoForm');
@@ -185,10 +176,17 @@
                     <h3>${curriculo.nome}</h3>
                     <p><strong>Contato:</strong> ${curriculo.contato}</p>
                     <p>${curriculo.descricao}</p>
-                    <img src="${curriculo.imagem}" alt="Currículo de ${curriculo.nome}">
+                    <img src="${curriculo.imagem}" alt="Currículo de ${curriculo.nome}" style="max-width: 100%;">
+                    <button class="delete-btn" onclick="deleteCurriculo(${index})">Excluir</button>
                 `;
                 curriculosContainer.appendChild(curriculoDiv);
             });
+        }
+
+        function deleteCurriculo(index) {
+            curriculos.splice(index, 1);
+            localStorage.setItem('curriculos', JSON.stringify(curriculos));
+            renderCurriculos();
         }
 
         themeToggle.addEventListener('click', () => {
