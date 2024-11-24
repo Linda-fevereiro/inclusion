@@ -105,6 +105,22 @@
                 max-width: 90%;
             }
         }
+         .menu {
+            display: flex;
+            align-items: center;
+            position: relative;
+        }
+
+        .menu img {
+            height: 50px;
+            margin-right: 10px;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+
+        .menu img:hover {
+            transform: scale(1.1);
+        }
 
         footer {
             background-color: #9c9c9c;
@@ -117,7 +133,11 @@
 </head>
 <body>
     <header>
-        <img src="logo.png" alt="Logo">
+       <div class="menu">
+            <img src="logo.png" alt="logo.png" id="logo" onclick="toggleDropdown()">
+            <div class="dropdown" id="dropdown">
+                <a href="index.html">Home</a>
+            </div>
         <div class="theme-toggle-container">
             <img src="tema.png" alt="Trocar Tema" id="themeToggle" width="30px"; height="30px";>
         </div>
