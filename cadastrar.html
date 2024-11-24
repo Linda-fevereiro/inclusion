@@ -61,7 +61,7 @@
         }
 
         main {
-            flex-grow: 1; 
+            flex-grow: 1; /* Permite que o main ocupe o espaço disponível */
             display: flex;
             justify-content: center;
             align-items: flex-start;
@@ -230,11 +230,12 @@
             .form-container img {
                 width: 100%;
             }
-
             a{
-                padding: 5px 10px;
-                border-radius: 5px;
-                margin-left: 20px;
+                padding: 5px 10px; /* Diminuindo o tamanho do botão */
+            border-radius: 5px; /* Bordas arredondadas */
+            /* Para que o padding funcione corretamente */
+            margin-left: 20px; /* Espaçamento à esquerda */
+            overflow: hidden;
             }
         }
     </style>
@@ -285,7 +286,8 @@
         <div class="form-container">
             <img src="login.png" alt="Imagem Representativa">
         </div>
-        <a href="index.html" class="butao">VOLTAR</a>
+        <a href="index.html"  class="butao" style="text-decoration: none; background-color: #668cb4; color: rgba(255, 0, 0, 0.644);font-size: 15px;
+        font-family: 'Times New Roman', Times, serif; padding: 7px; border-radius: 30px;  ">VOLTAR</a>
     </main>
 
     <footer class="footer-box">
@@ -293,8 +295,7 @@
     </footer>
 
     <script>
-        // O script permanece o mesmo
-           let isReading = false;
+        let isReading = false;
         let speechSynthesisInstance = null;
 
         function saveDataAndRedirect(event) {
@@ -393,3 +394,4 @@
     </script>
 </body>
 </html>
+
