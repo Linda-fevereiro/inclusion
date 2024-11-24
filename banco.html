@@ -121,7 +121,27 @@
         .menu img:hover {
             transform: scale(1.1);
         }
+ .dropdown {
+            display: none;
+            position: absolute;
+            background-color: white;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            padding: 10px;
+            z-index: 1;
+        }
 
+        .dropdown a {
+            color: #000;
+            text-decoration: none;
+            display: block;
+            padding: 5px;
+            transition: background 0.3s;
+        }
+
+        .dropdown a:hover {
+            background: #f0f0f0;
+        }
         footer {
             background-color: #9c9c9c;
             color: rgb(27, 26, 26);
