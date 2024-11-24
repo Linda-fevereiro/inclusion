@@ -36,7 +36,7 @@
         }
 
         header img {
-            height: 30px;
+            height: 50px;
             cursor: pointer;
         }
 
@@ -105,43 +105,14 @@
                 max-width: 90%;
             }
         }
-         .menu {
-            display: flex;
-            align-items: center;
-            position: relative;
-        }
+        a{
+                padding: 5px 10px; /* Diminuindo o tamanho do botão */
+            border-radius: 5px; /* Bordas arredondadas */
+            /* Para que o padding funcione corretamente */
+            margin-left: 20px; /* Espaçamento à esquerda */
+            overflow: hidden;
+            }
 
-        .menu img {
-            height: 50px;
-            margin-right: 10px;
-            cursor: pointer;
-            transition: transform 0.3s;
-        }
-
-        .menu img:hover {
-            transform: scale(1.1);
-        }
- .dropdown {
-            display: none;
-            position: absolute;
-            background-color: white;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            padding: 10px;
-            z-index: 1;
-        }
-
-        .dropdown a {
-            color: #000;
-            text-decoration: none;
-            display: block;
-            padding: 5px;
-            transition: background 0.3s;
-        }
-
-        .dropdown a:hover {
-            background: #f0f0f0;
-        }
         footer {
             background-color: #9c9c9c;
             color: rgb(27, 26, 26);
@@ -149,20 +120,13 @@
             padding: 10px 0;
             margin-top: auto;
         }
-
     </style>
 </head>
 <body>
     <header>
-       <div class="menu">
-              <div class="dropdown" id="dropdown">
-        <a href="index.html">   <img src="logo.png" alt="logo.png" id="logo" onclick="toggleDropdown()"></a> 
-        
-           </div>
-                
-            </div>
+        <img src="logo.png" alt="Logo">
         <div class="theme-toggle-container">
-            <img src="tema.png" alt="Trocar Tema" id="themeToggle" width="30px"; height="30px";>
+            <img src="tema.png" alt="Trocar Tema" id="themeToggle" width="40px">
         </div>
     </header>
 
@@ -196,7 +160,9 @@
     <div class="container" id="curriculosContainer">
         <h2>Currículos Disponíveis</h2>
     </div>
- 
+</div>
+<a href="index.html"  class="butao" style="text-decoration: none; background-color: #668cb4; color: rgba(255, 0, 0, 0.644);font-size: 15px;
+font-family: 'Times New Roman', Times, serif; padding: 7px; border-radius: 30px; width: 60px; ">VOLTAR</a>
     <footer>
         <p>© 2024 Inclusion Technician. Todos os direitos reservados.</p>
     </footer>
