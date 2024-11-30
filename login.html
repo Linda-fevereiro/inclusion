@@ -31,6 +31,17 @@
             padding: 20px;
             overflow: auto;
         }
+           .fixed-logo {
+            position: fixed;
+            top: 10px;
+            left: 10px;
+            z-index: 10;
+        }
+
+        .fixed-logo img {
+            height: 50px;
+            cursor: pointer;
+        }
 
        header {
     width: 100%;
@@ -209,9 +220,10 @@
 </head>
 <body>
    <header>
+       <div class="fixed-logo">
     <div class="menu">
         <img src="logo.png" alt="Logo">
-    </div>
+    </div> </div>
     <div class="theme-toggle">
         <button class="dark" id="themeToggle">
             <img src="tema.png" alt="Tema">
