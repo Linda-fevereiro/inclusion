@@ -59,7 +59,26 @@
             text-align: center;
             flex-grow: 1;
             margin: 0;
+        }  
+        .fixed-logo {
+            position: fixed;
+            top: 10px;
+            left: 10px;
+            z-index: 10;
         }
+
+        .fixed-logo img {
+            height: 50px;
+            cursor: pointer;
+        }
+
+        .theme-toggle-container {
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            z-index: 10;
+        }
+
 
         .theme-toggle-container button {
             display: flex;
@@ -185,9 +204,11 @@
 </head>
 <body>
     <header>
+      <div>  class="fixed-logo"
         <a href="index.html">
             <img src="logo.png" alt="Logo" style="height: 50px;">
         </a>
+            </div>
         <h1>Feedback</h1>
         <div class="theme-toggle-container">
             <button id="themeToggle">
