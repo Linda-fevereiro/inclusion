@@ -31,6 +31,7 @@
             min-height: 100vh;
             padding: 20px;
             overflow: auto;
+             font-size: 14px;
         }
   .fixed-logo {
             position: fixed;
@@ -54,10 +55,12 @@ header {
     z-index: 1000;
      background: var(--background-color);
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      flex-direction: column;
+        gap: 10px;
 }
 
 .menu img {
-    height: 50px;
+    height: 40px;
     width: auto;
     position: fixed;
     top: 10px;
@@ -73,7 +76,7 @@ header {
 }
 
 .theme-toggle img {
-    height: 30px;
+    height: 25px;
     width: auto;
     cursor: pointer;
 }
@@ -96,6 +99,8 @@ header {
             width: 100%;
             max-width: 500px;
             margin: 0 auto;
+             padding: 10px; /* Reduz o espaçamento */
+        width: 100%; /* Garante que ocupe a largura total */
         }
 
         .form-container img {
@@ -105,13 +110,13 @@ header {
 
         .container {
             background: var(--form-bg-color);
-            padding: 40px;
             border-radius: 10px;
-            box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
-            width: 100%;
             display: flex;
             flex-direction: column;
             justify-content: flex-start;
+             padding: 20px; /* Reduz padding para economizar espaço */
+        width: 100%; /* Ocupa toda a largura */
+        box-shadow: none; /* Remove sombra para aparência mais leve */
         }
 
         .container:hover {
@@ -132,6 +137,7 @@ header {
             display: block;
             margin-bottom: 5px;
             color: #f5e7e7;
+            font-size: 12px;
         }
 
         .form-group input,
@@ -141,6 +147,7 @@ header {
             border: 1px solid #ccc;
             border-radius: 4px;
             height: 45px;
+            font-size: 12px;
         }
 
         .form-row {
@@ -180,7 +187,6 @@ header {
 
         .footer-box {
             text-align: center;
-            padding: 10px;
             background-color: #d3d3d3;
             color: rgb(46, 45, 45);
             position: relative;
@@ -189,6 +195,8 @@ header {
             height: 50px;
             box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
             margin-top: 60px;
+             font-size: 12px; /* Diminui tamanho do texto no rodapé */
+        padding: 5px; /* Reduz o espaço interno do rodapé */
         }
 
         /* Media Queries para Responsividade */
@@ -217,6 +225,44 @@ header {
                 height: 25px;
             }
         }
+           @media (max-width: 480px) {
+        main {
+            flex-direction: column;
+            padding: 10px;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .form-container {
+            margin: 0;
+        }
+
+        h2 {
+            font-size: 16px; /* Ajusta tamanho do título */
+        }
+
+        .form-group input[type="submit"] {
+            font-size: 14px;
+            padding: 10px;
+        }
+
+        a.butao {
+            padding: 7px 15px; /* Ajusta tamanho do botão */
+            font-size: 12px; /* Reduz a fonte */
+        }
+
+        .footer-box {
+            font-size: 12px; /* Ajusta tamanho da fonte no rodapé */
+        }
+
+        .form-group {
+            margin-bottom: 10px; /* Reduz espaçamento entre grupos */
+        }
+
+        .form-row {
+            flex-direction: column; /* Alinha os campos verticalmente */
+        }
+    }
 
         @media (max-width: 480px) {
             header {
