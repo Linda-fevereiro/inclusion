@@ -43,8 +43,7 @@
             height: 50px;
             cursor: pointer;
         }
-
-       header {
+header {
     width: 100%;
     display: flex;
     justify-content: space-between;
@@ -53,23 +52,30 @@
     position: fixed;
     top: 0;
     z-index: 1000;
- 
+    
 }
-      
-        .menu img {
-            height: 50px;
-            width: auto;
-        }
 
-        .theme-toggle {
-            display: flex;
-            align-items: center;
-        }
+.menu img {
+    height: 50px;
+    width: auto;
+    position: fixed;
+    top: 10px;
+    left: 10px;
+}
 
-        .theme-toggle img {
-            height: 30px;
-            width: auto;
-        }
+.theme-toggle {
+    display: flex;
+    align-items: center;
+    position: fixed;
+    top: 10px;
+    right: 10px;
+}
+
+.theme-toggle img {
+    height: 30px;
+    width: auto;
+    cursor: pointer;
+}
 
         main {
             flex-grow: 1; /* Permite que o main ocupe o espaço disponível */
