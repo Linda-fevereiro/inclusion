@@ -44,7 +44,7 @@
             flex-grow: 1;
             width: 100%;
             max-width: 600px;
-            margin-top: 50px:
+            margin-top: 80px:
         }
 
         header {
@@ -294,6 +294,11 @@
 
         // Inicializa feedbacks ao carregar a página
         displayFeedbacks();
+         // Alterna entre os temas claro e escuro
+        const themeToggle = document.getElementById('themeToggle');
+        themeToggle.addEventListener('click', () => {
+            document.body.classList.toggle('dark-mode');
+        });
     </script>
 </body>
 </html>
