@@ -32,33 +32,40 @@
             overflow: auto;
         }
 
-        header {
-            width: 100%;
-            display: flex;
-            justify-content: space-between;
-            padding: 10px;
-            position: fixed;
-            top: 0;
-            left: 0;
-            background: var(--background-color);
-            z-index: 1000;
-        }
+       header {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    position: fixed;
+    top: 0;
+    z-index: 1000;
+    background: var(--background-color);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
 
-        .menu img {
-            height: 50px;
-            width: auto;
-        }
+.menu img {
+    height: 50px;
+    width: auto;
+    position: fixed;
+    top: 10px;
+    left: 10px;
+}
 
-        .theme-toggle {
-            display: flex;
-            align-items: center;
-        }
+.theme-toggle {
+    display: flex;
+    align-items: center;
+    position: fixed;
+    top: 10px;
+    right: 10px;
+}
 
-        .theme-toggle img {
-            height: 30px; /* Diminuindo o tamanho do ícone de troca de tema */
-            width: auto;
-        }
-
+.theme-toggle img {
+    height: 30px;
+    width: auto;
+    cursor: pointer;
+}
         main {
             flex-grow: 1;
             display: flex;
@@ -201,15 +208,16 @@
     </style>
 </head>
 <body>
-    <header>
-        <div class="menu">
-            <img src="logo.png" alt="Logo">
-        </div>
-        <div class="theme-toggle">
-            <button class="dark" id="themeToggle"><img src="tema.png" alt="Tema"></button>
-        </div>
-    </header>
-
+   <header>
+    <div class="menu">
+        <img src="logo.png" alt="Logo">
+    </div>
+    <div class="theme-toggle">
+        <button class="dark" id="themeToggle">
+            <img src="tema.png" alt="Tema">
+        </button>
+    </div>
+</header>
     <main>
         <div class="form-container">
             <div class="container" id="loginContainer">
