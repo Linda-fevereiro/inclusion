@@ -1,19 +1,17 @@
-<!DOCTYPE html>
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
     <style>
-        /* Variáveis Globais */
         :root {
-            --font-header: "Bebas Neue", sans-serif;
-            --font-body: "Saira", sans-serif;
-            --bg-light: LightBlue;
-            --bg-dark: MidnightBlue;
-            --form-bg: rgb(66, 107, 161);
-            --text-light: #faf2f2;
-            --text-dark: #141313;
+            --font-link-header: "Bebas Neue", sans-serif;
+            --font-texto: "Saira", sans-serif;
+            --background-color: rgb(186, 232, 247);
+            --text-color: #f0e9e9;
+            --button-bg-color: #e0e0e0;
+            --button-text-color: #ccc2c2;
+            --form-bg-color: rgb(66, 107, 161);
         }
 
         * {
@@ -23,153 +21,283 @@
         }
 
         body {
-            font-family: var(--font-body), Arial, sans-serif;
-            background: linear-gradient(135deg, var(--bg-light), LightGreen, yellow);
-            color: var(--text-light);
+            background: linear-gradient(135deg, LightBlue, LightGreen, yellow);
+            color: var(--text-color);
+            font-family: Arial, sans-serif;
             display: flex;
             flex-direction: column;
             min-height: 100vh;
+            padding: 20px;
+            overflow: auto;
         }
-
-        header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 10px;
-            background-color: rgba(255, 255, 255, 0.1);
+           .fixed-logo {
             position: fixed;
-            width: 100%;
-            top: 0;
+            top: 10px;
+            left: 10px;
             z-index: 10;
         }
 
-        .menu img {
+        .fixed-logo img {
             height: 50px;
-        }
-
-        .theme-toggle img {
-            height: 30px;
             cursor: pointer;
         }
 
+       header {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    position: fixed;
+    top: 0;
+    z-index: 1000;
+   
+}
+
+.menu img {
+    height: 50px;
+    width: auto;
+    position: fixed;
+    top: 10px;
+    left: 10px;
+}
+
+.theme-toggle {
+    display: flex;
+    align-items: center;
+    position: fixed;
+    top: 10px;
+    right: 10px;
+}
+
+.theme-toggle img {
+    height: 30px;
+    width: auto;
+    cursor: pointer;
+}
         main {
-            margin-top: 80px;
+            flex-grow: 1;
             display: flex;
             justify-content: center;
-            align-items: center;
+            align-items: flex-start;
+            gap: 30px;
+            margin-top: 80px;
             flex-wrap: wrap;
-            gap: 20px;
-            padding: 20px;
+           padding: 10px;
         }
 
         .form-container {
-            max-width: 400px;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            flex-direction: column;
             width: 100%;
-            background-color: var(--form-bg);
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        .form-container img {
+            max-width: 100%;
+            height: auto;
+        }
+
+        .container {
+            background: var(--form-bg-color);
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
         }
 
         h2 {
-            text-align: center;
-            color: var(--text-light);
-            margin-bottom: 20px;
-        }
-
-        label {
-            display: block;
-            margin-bottom: 8px;
-            color: var(--text-light);
-        }
-
-        input {
-            width: 100%;
-            padding: 10px;
             margin-bottom: 15px;
+            color: #faf2f2;
+            text-align: center;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            color: #f5e7e7;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 15px;
             border: 1px solid #ccc;
-            border-radius: 5px;
+            border-radius: 4px;
+            height: 45px;
         }
 
-        input[type="submit"] {
+        .form-group input[type="submit"] {
             background-color: #007bff;
-            color: #fff;
-            font-weight: bold;
+            color: #ffffff;
+            border: none;
             cursor: pointer;
+            font-size: 14px;
+            font-weight: bold;
+            padding: 10px;
+            border-radius: 4px;
+            transition: background-color 0.3s;
         }
 
-        input[type="submit"]:hover {
+        .form-group input[type="submit"]:hover {
             background-color: #0056b3;
         }
 
-        footer {
-            margin-top: auto;
-            text-align: center;
-            background-color: rgba(211, 211, 211, 0.5);
-            padding: 10px;
+        body.dark-mode {
+            --background-color: MidnightBlue;
+            --text-color: #141313;
+            --button-bg-color: #faeeee;
+            --button-text-color: #ffffff;
+            --form-bg-color: #17083b;
         }
 
-        /* Responsividade */
-        @media (max-width: 480px) {
+        .footer-box {
+            text-align: center;
+            padding: 10px;
+            background-color: #d3d3d3;
+            color: rgb(46, 45, 45);
+            position: relative;
+            bottom: 0;
+            min-width: 500px;
+            height: 50px;
+            box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
+            margin-top: 60px;
+        }
+
+        /* Media Queries para Responsividade */
+        @media (max-width: 768px) {
             main {
-                padding: 10px;
+                flex-direction: column;
+                align-items: center;
+                gap: 20px;
             }
 
             .form-container {
+                width: 90%;
+            }
+
+            header {
                 padding: 15px;
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+
+        @media (max-width: 480px) {
+            header {
+                padding: 10px;
+            }
+
+            .menu img {
+                height: 50px;
+            }
+
+            .container {
+                padding: 20px;
+            }
+
+            .form-group input {
+                padding: 12px;
+            }
+
+            .form-group input[type="submit"] {
+                font-size: 12px;
+                padding: 8px;
             }
         }
     </style>
 </head>
 <body>
-    <header>
-        <div class="menu">
-            <img src="logo.png" alt="Logo">
-        </div>
-        <div class="theme-toggle">
-            <img src="tema.png" alt="Alternar Tema" id="themeToggle">
-        </div>
-    </header>
-
+   <header>
+       <div class="fixed-logo">
+    <div class="menu">
+        <img src="logo.png" alt="Logo">
+    </div> </div>
+    <div class="theme-toggle">
+        <button class="dark" id="themeToggle">
+            <img src="tema.png" alt="Tema">
+        </button>
+    </div>
+</header>
     <main>
         <div class="form-container">
-            <h2>Login</h2>
-            <form id="loginForm">
-                <label for="studentName">Nome do Aluno:</label>
-                <input type="text" id="studentName" name="studentName" required>
-                
-                <label for="password">Senha:</label>
-                <input type="password" id="password" name="password" required>
-
-                <input type="submit" value="Entrar">
-            </form>
+            <div class="container" id="loginContainer">
+                <h2>Login</h2>
+                <form id="loginForm" onsubmit="handleLogin(event)">
+                    <div class="form-group">
+                        <label for="studentName">Nome do Aluno:</label>
+                        <input type="text" id="studentName" name="studentName" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Senha:</label>
+                        <input type="password" id="password" name="password" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="submit" value="Entrar">
+                    </div>
+                </form>
+            </div>
         </div>
+        <div class="form-container">
+            <img src="login.png" alt="Imagem Representativa">
+        </div>
+        <a href="index.html" class="butao" style="text-decoration: none; background-color: #668cb4; color: rgba(255, 0, 0, 0.644); font-size: 15px; font-family: 'Times New Roman', Times, serif; padding: 7px; border-radius: 30px;">VOLTAR</a>
     </main>
 
-    <footer>
+    <footer class="footer-box">
         <p>© 2024 Inclusion Technician. Todos os direitos reservados.</p>
     </footer>
 
     <script>
-        const themeToggle = document.getElementById("themeToggle");
-
-        themeToggle.addEventListener("click", () => {
-            document.body.classList.toggle("dark-mode");
-            themeToggle.src = document.body.classList.contains("dark-mode")
-                ? "tema-escuro.png"
-                : "tema-claro.png";
-        });
-
-        document.getElementById("loginForm").addEventListener("submit", (event) => {
+        // Função para lidar com o login
+        function handleLogin(event) {
             event.preventDefault();
-            const name = document.getElementById("studentName").value;
-            const password = document.getElementById("password").value;
 
-            if (name === "alunoExemplo" && password === "12345") {
+            const studentName = document.getElementById('studentName').value;
+            const password = document.getElementById('password').value;
+
+            // Recuperar dados do localStorage
+            const storedStudentName = localStorage.getItem('studentName');
+            const storedPassword = localStorage.getItem('password');
+            const storedAge = localStorage.getItem('age'); // Recuperar a idade do localStorage
+
+            // Verificar se os dados inseridos correspondem aos armazenados
+            if (studentName === storedStudentName && password === storedPassword) {
                 alert("Login bem-sucedido!");
-                window.location.href = "it.html";
+
+                // Redirecionar para a página com base na idade
+                const age = parseInt(storedAge);
+                if (age >= 3 && age <= 6) {
+                    window.location.href = "it.html"; // Página para idades de 3 a 6
+                } else if (age >= 7 && age <= 11) {
+                    window.location.href = "it2.html"; // Página para idades de 7 a 11
+                } else {
+                    alert("Idade não permitida para este login.");
+                }
             } else {
-                alert("Credenciais incorretas. Tente novamente.");
+                alert("Nome do aluno ou senha incorretos. Tente novamente.");
+            }
+        }
+
+        // Alternar tema claro/escuro
+        document.getElementById('themeToggle').addEventListener('click', function () {
+            document.body.classList.toggle('dark-mode');
+
+            // Alterar ícone do botão conforme o tema
+            const img = this.querySelector('img');
+            if (document.body.classList.contains('dark-mode')) {
+                img.src = "tema.png"; // Substitua pelo ícone do tema escuro
+            } else {
+                img.src = "tema.png"; // Substitua pelo ícone do tema claro
             }
         });
     </script>
