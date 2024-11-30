@@ -32,19 +32,30 @@
             padding: 20px;
             overflow: auto;
         }
-
-        header {
-            width: 100%;
-            display: flex;
-            justify-content: space-between;
-            padding: 10px;
+  .fixed-logo {
             position: fixed;
-            top: 0;
-            left: 0;
-            background: var(--background-color);
-            z-index: 1000;
+            top: 10px;
+            left: 10px;
+            z-index: 10;
         }
 
+        .fixed-logo img {
+            height: 50px;
+            cursor: pointer;
+        }
+
+       header {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    position: fixed;
+    top: 0;
+    z-index: 1000;
+ 
+}
+      
         .menu img {
             height: 50px;
             width: auto;
@@ -242,8 +253,10 @@
 </head>
 <body>
     <header>
+        <div class="fixed-logo">
         <div class="menu">
             <img src="logo.png" alt="Logo">
+        </div>
         </div>
         <div class="theme-toggle">
             <button class="dark" id="themeToggle"><img src="tema.png" alt="Tema" ></button>
