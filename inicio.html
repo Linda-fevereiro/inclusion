@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inclusion Technician </title>
+    <style>
+        :root {
+            --font-link-header: "Bebas Neue", sans-serif;
+            --font-texto: "Saira", sans-serif;
+            --background-color: LightBlue;
+            --text-color: #000000;
+            --button-bg-color: #e0e0e0;
+            --button-text-color: #000000;
+            --highlight-color: yellow;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: var(--background-color);
+            color: var(--text-color);
+            font-family: var(--font-texto);
+            display: flex;
+            flex-direction: row;
+            min-height: 100vh;
+            overflow: hidden;
+        }
+
+        .sidebar {
+            background-color: var(--highlight-color);
+            width: 200px;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            box-shadow: 2px 0px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .sidebar a {
+            text-decoration: none;
+            color: var(--text-color);
+            font-weight: bold;
+            padding: 10px;
+            background-color: var(--button-bg-color);
+            border-radius: 5px;
+            text-align: center;
+            font-family: 'Times New Roman', Times, serif;
+            transition: background-color 0.3s;
+        }
+
+        .sidebar a:hover {
+            background-color: lightgreen;
+        }
+
+        .main-content {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
+
+        .logo-container {
+            animation: fadeIn 1s ease, spin 4s linear infinite;
+            text-align: center;
+        }
+
+        .logo-container img {
+            max-width: 700px;
+        }
+
+        .theme-toggle-container,
+        .sound-toggle-container {
+            position: fixed;
+            bottom: 10px;
+            right: 10px;
+            display: flex;
+            gap: 10px;
+        }
+
+        button {
+            padding: 5px;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        #cookieConsent {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: rgba(211, 210, 210, 0.9);
+            color: rgba(37, 36, 36, 0.815);
+            padding: 10px 15px;
+            border-radius: 8px;
+            z-index: 1000;
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            font-size: 14px;
+        }
+
+        footer {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            text-align: center;
+            background-color: #d3d3d3;
+            padding: 10px;
+            color: #333;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes spin {
+            0% { transform: rotateY(0deg); }
+            100% { transform: rotateY(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <div class="sidebar">
+        <a href="index.html">Home</a>
+        <a href="cadastrar.html">Cadastro</a>
+        <a href="login.html">Login</a>
+        <a href="banco.html">Banco de Dados</a>
+        <a href="feedback.html">Feedback</a>
+    </div>
+
+    <div class="main-content">
+        <div class="logo-container">
+            <img src="logo.png" alt="Logo Inicial">
+        </div>
+    </div>
+
+    <div id="cookieConsent">
+        <p>Este site utiliza cookies para melhorar a experiência do usuário. Ao continuar navegando, você concorda com o uso de cookies.</p>
+        <button id="acceptCookies">Aceitar</button>
+    </div>
+    
+
+    <footer>© 2024 Inclusion Technician. Todos os direitos reservados.</footer>
+
+    
+
+    <script>
+        // Toggle Tema
+        document.getElementById("themeToggle").addEventListener("click", () => {
+            document.body.classList.toggle("dark-mode");
+        });
+
+        // Controle de Som
+        const sound = document.getElementById("calmSound");
+        document.getElementById("soundToggle").addEventListener("click", () => {
+            if (sound.paused) {
+                sound.play();
+            } else {
+                sound.pause();
+            }
+        });
+
+        // Consentimento de Cookies
+        const cookieConsent = document.getElementById("cookieConsent");
+        document.getElementById("acceptCookies").addEventListener("click", () => {
+            cookieConsent.style.display = "none";
+            localStorage.setItem("cookiesAccepted", "true");
+        });
+
+        if (!localStorage.getItem("cookiesAccepted")) {
+            cookieConsent.style.display = "flex";
+        }
+    </script>
+</body>
+</html>
