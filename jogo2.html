@@ -230,6 +230,12 @@
             scoreDisplay.textContent = `Pontuação: ${score}`;
         }
 
+        // Função que diminui a pontuação
+        function decrementScore() {
+            score--;
+            scoreDisplay.textContent = `Pontuação: ${score}`;
+        }
+
         // Função que reinicia o jogo quando o tempo se esgota
         function handleGameOver() {
             alert("Tempo esgotado! Sua pontuação final foi: " + score);
@@ -246,7 +252,12 @@
             }, 3000); // Muda o círculo a cada 3 segundos
 
             shape.addEventListener('click', () => {
-                incrementScore();
+                // Verifica a cor do círculo e atualiza a pontuação
+                if (shape.style.backgroundColor === 'blue') {
+                    incrementScore(); // Aumenta se for azul
+                } else {
+                    decrementScore(); // Diminui se não for azul
+                }
                 changeShape();
             });
 
