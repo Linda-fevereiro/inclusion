@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -16,6 +15,7 @@
             --form-bg-color: #ffffe0;
         }
 
+     
         body.dark-mode {
             --background-color: MidnightBlue;
             --text-color: #ffffff;
@@ -38,14 +38,14 @@
             align-items: center;
             min-height: 100vh;
             margin: 0;
-            animation: fadeIn 1s ease-in-out;
+            
         }
 
         main {
             flex-grow: 1;
             width: 100%;
             max-width: 600px;
-            margin-top: 20px;
+            margin-top:20px;
         }
 
         header {
@@ -55,22 +55,20 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            animation: slideIn 0.5s ease-in-out;
+            
         }
 
         h1 {
             text-align: center;
             flex-grow: 1;
             margin: 0;
-            animation: fadeIn 1.5s ease-in-out;
-        }
-
+           
+        }  
         .fixed-logo {
             position: fixed;
             top: 10px;
             left: 10px;
             z-index: 10;
-            animation: fadeIn 1s ease-in-out;
         }
 
         .fixed-logo img {
@@ -83,8 +81,8 @@
             top: 10px;
             right: 10px;
             z-index: 10;
-            animation: fadeIn 1s ease-in-out;
         }
+
 
         .theme-toggle-container button {
             display: flex;
@@ -95,11 +93,6 @@
             background: none;
             border: none;
             cursor: pointer;
-            transition: transform 0.3s ease-in-out;
-        }
-
-        .theme-toggle-container button:hover {
-            transform: scale(1.1);
         }
 
         .theme-toggle-container img {
@@ -114,8 +107,6 @@
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
             margin-bottom: 20px;
             margin-top: 40px;
-            opacity: 0;
-            animation: fadeIn 1s forwards;
         }
 
         label {
@@ -123,14 +114,12 @@
             margin: 10px 0 5px;
         }
 
-        input,
-        textarea {
+        input, textarea {
             width: calc(100% - 20px);
             padding: 8px;
             margin: 5px 0 10px;
             border: 1px solid #ddd;
             border-radius: 5px;
-            transition: all 0.3s ease-in-out;
         }
 
         input[type="submit"] {
@@ -141,12 +130,11 @@
             border: none;
             border-radius: 5px;
             font-size: 14px;
-            transition: background-color 0.3s, transform 0.2s;
+            transition: background-color 0.3s;
         }
 
         input[type="submit"]:hover {
             background-color: #32CD32;
-            transform: scale(1.05);
         }
 
         .feedback-item {
@@ -157,8 +145,6 @@
             box-shadow: 0 1px 5px rgba(0, 0, 0, 0.2);
             display: flex;
             flex-direction: column;
-            opacity: 0;
-            animation: fadeIn 1s forwards;
         }
 
         .feedback-item img {
@@ -176,21 +162,19 @@
             width: 100%;
             height: 50px;
             box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
-            animation: fadeIn 1s ease-in-out;
         }
 
         @media (max-width: 768px) {
             header {
                 flex-direction: column;
-                width: 100%;
+                 width: 100%;
             }
 
             h1 {
                 margin: 10px 0;
             }
 
-            input,
-            textarea {
+            input, textarea {
                 font-size: 14px;
             }
 
@@ -206,11 +190,10 @@
         @media (max-width: 480px) {
             header {
                 padding: 10px;
-                width: 100%;
+                 width: 100%;
             }
 
-            input,
-            textarea {
+            input, textarea {
                 font-size: 12px;
             }
 
@@ -222,38 +205,16 @@
                 padding: 10px;
             }
         }
-
-        /* Keyframe animations */
-        @keyframes fadeIn {
-            0% {
-                opacity: 0;
-            }
-
-            100% {
-                opacity: 1;
-            }
-        }
-
-        @keyframes slideIn {
-            0% {
-                transform: translateX(-100%);
-            }
-
-            100% {
-                transform: translateX(0);
-            }
-        }
     </style>
 </head>
-
 <body>
     <header>
-        <div class="fixed-logo">
-            <a href="index.html">
-                <img src="logo.png" alt="Logo" style="height: 50px;">
-            </a>
-        </div>
-        <h1>Feedback</h1>
+      <div class="fixed-logo">
+        <a href="index.html">
+            <img src="logo.png" alt="Logo" style="height: 50px;">
+        </a>
+            </div>
+       <h1>Feedback</h1>
         <div class="theme-toggle-container">
             <button id="themeToggle">
                 <img src="tema.png" alt="Tema">
@@ -261,8 +222,8 @@
         </div>
     </header>
 
-    <main style="margin-top: 20px;">
-
+    <main style="margin-top:20px;">
+         
         <form id="feedbackForm">
             <label for="name">Seu Nome:</label>
             <input type="text" id="name" name="name" required>
@@ -282,13 +243,13 @@
     </main>
 
     <footer class="footer-box">
-        <p>© 2024 Inclusion Technician. Todos os direitos reservados.</p>
+      <p>© 2024 Inclusion Technician. Todos os direitos reservados.</p>
     </footer>
 
     <script>
         let feedbacks = JSON.parse(localStorage.getItem('feedbacks')) || [];
 
-        document.getElementById('feedbackForm').addEventListener('submit', function (event) {
+        document.getElementById('feedbackForm').addEventListener('submit', function(event) {
             event.preventDefault();
             const name = document.getElementById('name').value;
             const email = document.getElementById('email').value;
@@ -319,10 +280,11 @@
             feedbacks.forEach((feedback, index) => {
                 const feedbackItem = document.createElement('div');
                 feedbackItem.className = 'feedback-item';
-                feedbackItem.innerHTML = `                    <h4>${feedback.name}</h4>
+                feedbackItem.innerHTML = 
+                    <h4>${feedback.name}</h4>
                     <p>${feedback.message}</p>
                     <button onclick="likeFeedback(${index})">Curtir (${feedback.likes})</button>
-                `;
+                ;
                 feedbackList.appendChild(feedbackItem);
             });
         }
@@ -335,15 +297,11 @@
 
         // Inicializa feedbacks ao carregar a página
         displayFeedbacks();
-
-        // Alterna entre os temas claro e escuro
+         // Alterna entre os temas claro e escuro
         const themeToggle = document.getElementById('themeToggle');
         themeToggle.addEventListener('click', () => {
             document.body.classList.toggle('dark-mode');
         });
     </script>
 </body>
-
 </html>
-
-                   
