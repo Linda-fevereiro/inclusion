@@ -297,10 +297,29 @@
 
         // Inicializa feedbacks ao carregar a página
         displayFeedbacks();
-         // Alterna entre os temas claro e escuro
+         // Alterna entre os temas c
+        // Alternar Tema
         const themeToggle = document.getElementById('themeToggle');
+        const setTheme = (isDark) => {
+            if (isDark) {
+                document.body.classList.add('dark-mode');
+                localStorage.setItem('theme', 'dark');
+            } else {
+                document.body.classList.remove('dark-mode');
+                localStorage.setItem('theme', 'light');
+            }
+        };
+
+        // Carregar Tema ao Abrir Página
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme === 'dark') {
+            document.body.classList.add('dark-mode');
+        }
+
+        // Alternar Tema ao Clicar
         themeToggle.addEventListener('click', () => {
-            document.body.classList.toggle('dark-mode');
+            const isDark = document.body.classList.toggle('dark-mode');
+            setTheme(isDark);
         });
     </script>
 </body>
