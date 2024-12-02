@@ -252,14 +252,39 @@
             }, 3000); // Muda o círculo a cada 3 segundos
 
             shape.addEventListener('click', () => {
-                // Verifica a cor do círculo e atualiza a pontuação
-                if (shape.style.backgroundColor === 'blue') {
-                    incrementScore(); // Aumenta se for azul
-                } else {
-                    decrementScore(); // Diminui se não for azul
+                // Obtém a cor do círculo
+                const currentColor = shape.style.backgroundColor;
+            
+                // Função para verificar se a cor é azul (qualquer tom de azul)
+                function isBlue(color) {
+                    // Caso a cor seja no formato RGB
+                    if (color.startsWith('rgb')) {
+                        const rgbValues = color.match(/\d+/g);
+                        const r = parseInt(rgbValues[0]);
+                        const g = parseInt(rgbValues[1]);
+                        const b = parseInt(rgbValues[2]);
+            
+                        // Verifica se o valor de azul (b) é maior que os valores de vermelho (r) e verde (g)
+                        return b > r && b > g;
+                    }
+                    // Caso a cor seja um nome de cor, verifica se é azul
+                    else if (color === 'blue') {
+                        return true;
+                    }
+                    return false;
                 }
+            
+                // Verifica se a cor é azul
+                if (isBlue(currentColor)) {
+                    incrementScore(); // Aumenta a pontuação se for azul
+                } else {
+                    decrementScore(); // Diminui a pontuação se não for azul
+                }
+            
+                // Muda a forma
                 changeShape();
             });
+
 
             shapeTimer = setTimeout(handleGameOver, 60000); // Game over após 60 segundos
         }
