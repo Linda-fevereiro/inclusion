@@ -88,39 +88,7 @@ input[type="submit"]:hover {
     border-radius: 5px;
     box-shadow: 0 1px 5px rgba(0, 0, 0, 0.2);
 }
-  .feedback-item {
-            background-color: #fff;
-            padding: 15px;
-            margin: 10px 0;
-            border-radius: 5px;
-            box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1);
-        }
-        .feedback-item h4 {
-            margin: 0;
-            font-size: 18px;
-        }
-        .feedback-item p {
-            font-size: 14px;
-            color: #555;
-        }
-        .feedback-item button {
-            background-color: #4CAF50;
-            color: white;
-            padding: 8px 15px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-        .feedback-item button:hover {
-            background-color: #45a049;
-        }
-        form {
-            margin-bottom: 20px;
-            background-color: #fff;
-            padding: 20px;
-            border-radius: 5px;
-            box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1);
-        }
+
 </style>
 <body>
     <header>
@@ -148,7 +116,7 @@ input[type="submit"]:hover {
             <label for="message">Deixe seu Feedback aqui:</label>
             <textarea id="message" name="message" rows="4" required></textarea>
 
-           <button type="submit">Enviar Feedback</button>
+            <input type="submit" value="Enviar">
         </form>
 
         <div id="feedbackList"></div>
@@ -163,65 +131,57 @@ input[type="submit"]:hover {
     <script src="script.js"></script>
 </body>
 <script>
-    // Função para obter os feedbacks e exibir
-        function fetchFeedbacks() {
-            fetch('getFeedbacks.php')
-                .then(response => response.json())
-                .then(feedbacks => {
-                    const feedbackList = document.getElementById('feedbackList');
-                    feedbackList.innerHTML = '';
+    // Recuperar feedbacks armazenados no localStorage
+let feedbacks = JSON.parse(localStorage.getItem('feedbacks')) || [];
 
-                    feedbacks.forEach(feedback => {
-                        const feedbackItem = document.createElement('div');
-                        feedbackItem.classList.add('feedback-item');
-                        feedbackItem.innerHTML = `
-                            <h4>${feedback.name}</h4>
-                            <p>${feedback.message}</p>
-                            <button onclick="likeFeedback(${feedback.id})">Curtir (${feedback.likes})</button>
-                        `;
-                        feedbackList.appendChild(feedbackItem);
-                    });
-                });
-        }
+// Função para salvar feedbacks no localStorage
+function saveFeedbacks() {
+    localStorage.setItem('feedbacks', JSON.stringify(feedbacks));
+}
 
-        // Enviar o feedback para o servidor
-        document.getElementById('feedbackForm').addEventListener('submit', function(event) {
-            event.preventDefault();
+// Função para exibir feedbacks na tela
+function displayFeedbacks() {
+    const feedbackList = document.getElementById('feedbackList');
+    feedbackList.innerHTML = ''; // Limpa a lista antes de renderizar
 
-            const name = document.getElementById('name').value;
-            const email = document.getElementById('email').value;
-            const message = document.getElementById('message').value;
+    feedbacks.slice().reverse().forEach((feedback, index) => {
+        const feedbackItem = document.createElement('div');
+        feedbackItem.className = 'feedback-item';
+        feedbackItem.innerHTML = `
+            <h4>${feedback.name}</h4>
+            <p>${feedback.message}</p>
+            <button onclick="likeFeedback(${index})">Curtir (${feedback.likes})</button>
+        `;
+        feedbackList.appendChild(feedbackItem);
+    });
+}
 
-            const formData = new FormData();
-            formData.append('name', name);
-            formData.append('email', email);
-            formData.append('message', message);
+// Função para adicionar curtidas a um feedback
+function likeFeedback(index) {
+    feedbacks[index].likes++;
+    saveFeedbacks(); // Salvar atualização no localStorage
+    displayFeedbacks(); // Atualizar exibição
+}
 
-            fetch('saveFeedback.php', {
-                method: 'POST',
-                body: formData
-            })
-            .then(response => response.json())
-            .then(() => {
-                fetchFeedbacks();
-                document.getElementById('feedbackForm').reset();
-            });
-        });
+// Evento de envio do formulário
+document.getElementById('feedbackForm').addEventListener('submit', (e) => {
+    e.preventDefault();
 
-        // Curtir um feedback
-        function likeFeedback(id) {
-            fetch('likeFeedback.php', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({ id })
-            })
-            .then(response => response.json())
-            .then(() => fetchFeedbacks());
-        }
+    const name = document.getElementById('name').value;
+    const email = document.getElementById('email').value;
+    const message = document.getElementById('message').value;
 
-        // Carregar feedbacks ao carregar a página
-        window.onload = fetchFeedbacks;
+    const feedback = { name, email, message, likes: 0 }; // Estrutura de cada feedback
+    feedbacks.push(feedback); // Adiciona o feedback ao array
+
+    saveFeedbacks(); // Salva no localStorage
+    displayFeedbacks(); // Atualiza a lista de feedbacks
+
+    document.getElementById('feedbackForm').reset(); // Limpa o formulário
+});
+
+// Inicializa a exibição de feedbacks ao carregar a página
+displayFeedbacks();
+
 </script>
 </html>
