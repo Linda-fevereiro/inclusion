@@ -88,7 +88,39 @@ input[type="submit"]:hover {
     border-radius: 5px;
     box-shadow: 0 1px 5px rgba(0, 0, 0, 0.2);
 }
-
+  .feedback-item {
+            background-color: #fff;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 5px;
+            box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1);
+        }
+        .feedback-item h4 {
+            margin: 0;
+            font-size: 18px;
+        }
+        .feedback-item p {
+            font-size: 14px;
+            color: #555;
+        }
+        .feedback-item button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 8px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .feedback-item button:hover {
+            background-color: #45a049;
+        }
+        form {
+            margin-bottom: 20px;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1);
+        }
 </style>
 <body>
     <header>
@@ -116,7 +148,7 @@ input[type="submit"]:hover {
             <label for="message">Deixe seu Feedback aqui:</label>
             <textarea id="message" name="message" rows="4" required></textarea>
 
-            <input type="submit" value="Enviar">
+           <button type="submit">Enviar Feedback</button>
         </form>
 
         <div id="feedbackList"></div>
